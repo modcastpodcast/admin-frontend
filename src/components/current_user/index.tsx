@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import "./current_user.scss";
 
-import { getCurrentUser, getUser, redirectToAuthorize } from "../../api";
+import { getCurrentUser, getUser } from "../../api";
 import ProfilePicture from "../profile_picture";
 import usePromise from "react-promise-suspense";
 
