@@ -1,13 +1,45 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { NavLink } from "react-router-dom";
 
 import logo from "./icon.png";
 
 import "./sidebar.scss";
 
-import CurrentUser from "../components/current_user";
+import CurrentUser from "../current_user";
+import { getCurrentUser } from "../../api";
 
-class Sidebar extends Component {
+interface SidebarState {
+    adminSection: JSX.Element | null,
+}
+
+class Sidebar extends Component<Readonly<{}>, SidebarState> {
+    constructor(props: Readonly<{}>) {
+        super(props);
+
+        this.state = {
+            adminSection: null
+        }
+    }
+
+    async componentDidMount() {
+        let currentUser = await getCurrentUser();
+
+        if (currentUser.is_admin) {
+            this.setState({
+                adminSection: <div>
+                    <li className="nav-section">
+                        Admin
+                    </li>
+                    <li>
+                        <NavLink activeClassName="active-link" exact={true} to="/admin/users">Users</NavLink>
+                    </li>
+                    <li>
+                        <NavLink activeClassName="active-link" exact={true} to="/admin/tokens">Tokens</NavLink>
+                    </li>
+                </div>
+            })
+        }
+    }
     render() {
         return <div className="Sidebar-holder">
             <div className="Sidebar">
@@ -26,15 +58,7 @@ class Sidebar extends Component {
                         <li>
                             <NavLink activeClassName="active-link" to="/abc">My URLs</NavLink>
                         </li>
-                        <li className="nav-section">
-                            Admin
-                        </li>
-                        <li>
-                            <NavLink activeClassName="active-link" exact={true} to="/admin/users">Users</NavLink>
-                        </li>
-                        <li>
-                            <NavLink activeClassName="active-link" exact={true} to="/admin/tokens">Tokens</NavLink>
-                        </li>
+                        {this.state.adminSection}
                     </nav>
                 </div>
                 <div className="Sidebar-bottom">

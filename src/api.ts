@@ -5,6 +5,8 @@ const OAUTH2_AUTHORIZE = "https://modpod.live/oauth2/authorize";
 
 const USER_CACHE: { [id: string] : User } = {}
 
+let CURRENT_USER_CACHE: APIKey | null = null;
+
 export function redirectToAuthorize() {
     document.location.href = OAUTH2_AUTHORIZE;
 }
@@ -42,9 +44,14 @@ export async function getUser(userID: string): Promise<User> {
 }
 
 export async function getCurrentUser(): Promise<APIKey> {
+    if (CURRENT_USER_CACHE)
+        return CURRENT_USER_CACHE;
+
     let user = await get("/me");
 
     let currentToken = await user.json();
+
+    CURRENT_USER_CACHE = currentToken;
 
     return currentToken;
 }
