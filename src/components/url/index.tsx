@@ -3,18 +3,17 @@ import moment from "moment";
 
 import "./url.scss";
 
+import { Link } from "../../types";
+import ProfilePicture from "../profile_picture";
+
 interface URLProps  {
-    shortCode: string,
-    longURL: string,
-    clicks: number,
-    // creator: number,
-    creationDate: Date
+    link: Link
 }
 
 class URL extends Component<URLProps, {}> {
     formatCreated() {
         let now = moment.utc();
-        let duration = moment.duration(now.diff(moment(this.props.creationDate)))
+        let duration = moment.duration(now.diff(moment(this.props.link.creation_date)))
 
         return duration.humanize({
             d: 7,
@@ -24,10 +23,10 @@ class URL extends Component<URLProps, {}> {
 
     render() {
         return <div className="URL">
-            <h2 className="shortCode">{this.props.shortCode}</h2>
-            <p className="longURL">Points to <a href={this.props.longURL}>{this.props.longURL}</a></p>
-            <p className="creator">Created by <img src="https://cdn.discordapp.com/avatars/249287049482338305/44b9747e477ca7a78d8f4f0f1dffbb23.png?size=64"/> <strong>Panley#8008</strong></p>
-            <p>{this.props.clicks} clicks • Created {this.formatCreated()} ago</p>
+            <h2 className="shortCode">{this.props.link.creation_date}</h2>
+            <p className="longURL">Points to <a href={this.props.link.long_url}>{this.props.link.long_url}</a></p>
+            <p className="creator">Created by <ProfilePicture id={this.props.link.creator.id} avatar={this.props.link.creator.avatar} size={32} discordSize={64}/> <strong>{this.props.link.creator.username}#{this.props.link.creator.discriminator}</strong></p>
+            <p>{this.props.link.clicks} clicks • Created {this.formatCreated()} ago</p>
         </div>
     }
 }
