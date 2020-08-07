@@ -3,7 +3,8 @@ export interface User {
     avatar: string,
     discriminator: string,
     public_flags: number,
-    username: string
+    username: string,
+    api_key?: APIKey
 }
 
 export interface APIKey {
