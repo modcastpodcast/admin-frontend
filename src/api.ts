@@ -1,4 +1,4 @@
-import {User} from "./types";
+import {User, APIKey, Link} from "./types";
 
 const API_BASE = "https://modpod.live/api";
 const OAUTH2_AUTHORIZE = "https://modpod.live/oauth2/authorize";
@@ -41,10 +41,30 @@ export async function getUser(userID: string): Promise<User> {
     return user_data;
 }
 
-export async function getCurrentUser() {
+export async function getCurrentUser(): Promise<APIKey> {
     let user = await get("/me");
 
     let currentToken = await user.json();
 
     return currentToken;
+}
+
+export async function getAllURLs(): Promise<Link[]> {
+    let linksReq = await get("/links/all")
+
+    let rawLinks = await linksReq.json();
+
+    const links = [];
+
+    for (var rawLink of rawLinks) {
+        links.push({
+            short_code: rawLink.short_code,
+            long_url: rawLink.long_url,
+            clicks: rawLink.clicks,
+            creation_date: new Date(rawLink.creation_date * 1000),
+            creator: await getUser(rawLink.creator)
+        })
+    }
+
+    return links;
 }
