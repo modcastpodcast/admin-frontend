@@ -29,6 +29,27 @@ async function get(route: string) {
     }
 }
 
+async function post(route: string, data: object) {
+    if (localStorage.token) {
+        try {
+            return await fetch(`${API_BASE}${route}`, {
+                method: "POST",
+                headers: {
+                    "Authorization": localStorage.token,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+        } catch(e) {
+            redirectToAuthorize();
+            throw 403;
+        }
+    } else {
+        redirectToAuthorize();
+        throw 403;
+    }
+}
+
 export async function getUser(userID: string): Promise<User> {
     if (USER_CACHE[userID]) {
         return USER_CACHE[userID];
@@ -74,4 +95,31 @@ export async function getAllURLs(): Promise<Link[]> {
     }
 
     return links;
+}
+
+export async function getAllUsers(): Promise<User[]> {
+    let userTokensReq = await get("/admin/users");
+    let userTokens: APIKey[] = await userTokensReq.json();
+
+    let users = [];
+
+    for (var userToken of userTokens) {
+        let user = await getUser(userToken.creator);
+        user.api_key = userToken;
+
+        users.push(user);
+    }
+
+    return users;
+}
+
+export async function createUserAccount(userID: string, administrator: boolean): Promise<any> {
+    let createRequest = await post("/admin/create_user", {
+        creator: userID,
+        is_admin: administrator
+    })
+
+    let resp = createRequest.json();
+
+    return resp;
 }
