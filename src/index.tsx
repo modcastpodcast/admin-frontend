@@ -8,7 +8,7 @@ import * as serviceWorker from './serviceWorker';
 if (process.env.NODE_ENV == "production") {
   Sentry.init({
     dsn: "https://730b85d36361482f862e3fb0ed12c2db@o431389.ingest.sentry.io/5382334",
-    release: `modpod-live-admin@${process.env.GIT_SHA}`
+    release: `modpod-live-admin@${process.env.REACT_APP_GIT_SHA}`
   });
 }
 
