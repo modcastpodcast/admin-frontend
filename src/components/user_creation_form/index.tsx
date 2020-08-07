@@ -61,10 +61,8 @@ class UserForm extends Component<UserFormProps, UserFormState> {
             </div>
 
             <div className="form-row">
-                <label className="checkbox">Administrator
-                    <input name="needs_oauth" type="checkbox" onChange={this.handleAdministratorChange} checked={this.state.administrator}/>
-                    <span className="checkmark"></span>
-                </label>
+                <p className="input-label">Administrator</p>
+                <input type="checkbox" onChange={this.handleAdministratorChange} checked={this.state.administrator}/>
             </div>
 
             <div className="form-row">

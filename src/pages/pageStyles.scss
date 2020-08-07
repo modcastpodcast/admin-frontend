@@ -11,15 +11,23 @@
 }
 
 .Modal {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     position: absolute;
-    top: 20%;
-    left: 30%;
-    right: 30%;
-    bottom: 30%;
     background-color: #23272A;
-    padding-left: 100px;
     outline: none;
     border-radius: 30px;
+    padding: 40px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.Modal * {
+    text-align: center;
+    justify-self: center;
 }
 
 .Overlay {
