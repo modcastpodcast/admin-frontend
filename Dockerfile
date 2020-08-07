@@ -1,5 +1,8 @@
 FROM node:latest AS builder
 
+ARG git_sha=none
+ENV REACT_APP_GIT_SHA=$git_sha
+
 RUN mkdir /app
 WORKDIR /app
 
