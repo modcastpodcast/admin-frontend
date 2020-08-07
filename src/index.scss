@@ -15,3 +15,26 @@ html {
 #root {
     height: 100%;
 }
+
+.button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 1.2em;
+    color: white;
+    width: 25%;
+    font-family: "Hind Siliguri", "Helvetica", "Arial", sans-serif;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.primary {
+    background-color: #7289DA;
+}
+
+.danger {
+    background-color: #d86161;
+}
