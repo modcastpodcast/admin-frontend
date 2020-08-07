@@ -10,14 +10,8 @@ interface URLListProps {
 }
 
 class URLList extends Component<URLListProps> {
-    async fetchData() {
-        let urls = await this.props.fetchMethod();
-
-        return urls;
-    }
-
     render() {
-        const urldata = usePromise(this.fetchData, []);
+        const urldata = usePromise(this.props.fetchMethod, []);
 
         for (var url of urldata) {
             urldata.push(<URL key={url.short_code} link={url}/>);
