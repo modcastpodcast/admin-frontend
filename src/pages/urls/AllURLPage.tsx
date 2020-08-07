@@ -32,10 +32,10 @@ class AllURLsPage extends Component<Readonly<{}>, AllURLsPageState> {
     }
 
     render() {
-        const urldata: URL[] = [];
+        const urldata = [];
 
         for (var url of this.state.urls) {
-            urldata.push(new URL({link: url}));
+            urldata.push(<URL key={url.short_code} link={url}/>);
         }
 
         return <div>
