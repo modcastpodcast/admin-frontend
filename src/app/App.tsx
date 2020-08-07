@@ -9,6 +9,7 @@ import Sidebar from "../sidebar/Sidebar";
 import './app.scss';
 
 import AllURLPage from "../pages/urls/AllURLPage";
+import TokenSavePage from "../pages/urls/TokenSavePage";
 
 class App extends Component {
     render() {
@@ -19,7 +20,11 @@ class App extends Component {
                 <div className="Body">
                     <Switch>
                         <Route path="/" exact={true}>
-                            <AllURLPage></AllURLPage>
+                            <AllURLPage/>
+                        </Route>
+
+                        <Route path="/authorize/:token">
+                            <TokenSavePage/>
                         </Route>
                     </Switch>
                 </div>
