@@ -4,22 +4,23 @@ import "./current_user.scss";
 
 import { getCurrentUser, getUser } from "../../api";
 import ProfilePicture from "../profile_picture";
-import usePromise from "react-promise-suspense";
+import {wrapPromise} from "../../utils";
 
-class CurrentUser extends Component {
-    render() {
-        let userData = usePromise(async () => {
-            let currentKey = await getCurrentUser();
-            let currentUser = await getUser(currentKey.creator);
+const userDataRequest = wrapPromise((async () => {
+    let currentKey = await getCurrentUser();
+    let currentUser = await getUser(currentKey.creator);
 
-            return currentUser;
-        }, []);
+    return currentUser;
+})());
 
-        return <div className="CurrentUser">
-            <ProfilePicture id={userData.id} avatar={userData.avatar} size={60} discordSize={128}/>
-            <p className="username">Logged in as {userData.username}#{userData.discriminator}</p>
-        </div>
-    }
+function CurrentUser() {
+
+    const userData = userDataRequest.read();
+
+    return <div className="CurrentUser">
+        <ProfilePicture id={userData.id} avatar={userData.avatar} size={60} discordSize={128}/>
+        <p className="username">Logged in as {userData.username}#{userData.discriminator}</p>
+    </div>
 }
 
 export default CurrentUser;

@@ -4,25 +4,24 @@ import usePromise from "react-promise-suspense"
 import URL from "../../components/url";
 
 import {Link} from "../../types";
+import {wrapPromise, WrappedPromise} from "../../utils";
+import { getAllURLs } from "../../api";
 
 interface URLListProps {
-    fetchMethod: () => Promise<Link[]>
+    resource: WrappedPromise<Link[]>
 }
 
-class URLList extends Component<URLListProps> {
-    render() {
-        const urldata = usePromise(this.props.fetchMethod, []);
+function URLList(props: Readonly<URLListProps>) {
+    const urls = [];
 
-        const urls = [];
-
-        for (var url of urldata) {
-            urls.push(<URL key={url.short_code} link={url}/>);
-        }
-
-        return <div className="urls">
-            {urls}
-        </div>
+    for (var url of props.resource.read()) {
+        urls.push(<URL key={url.short_code} link={url}/>);
     }
+
+    return <div className="urls">
+        <p className="page-subtitle">{urls.length} short URLs</p>
+        {urls}
+    </div>
 }
 
 export default URLList;
