@@ -11,3 +11,11 @@ export interface APIKey {
     is_admin: boolean,
     key: string
 }
+
+export interface Link {
+    short_code: string,
+    long_url: string,
+    clicks: number,
+    creation_date: Date,
+    creator: User
+}
