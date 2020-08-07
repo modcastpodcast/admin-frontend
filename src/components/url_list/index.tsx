@@ -1,7 +1,5 @@
-import React, { Component, Suspense } from "react";
-import usePromise from "react-promise-suspense";
-
-import "../pageStyles.scss";
+import React, { Component } from "react";
+import usePromise from "react-promise-suspense"
 
 import URL from "../../components/url";
 
@@ -31,4 +29,4 @@ class URLList extends Component<URLListProps> {
     }
 }
 
-export default AllURLsPage;
+export default URLList;
