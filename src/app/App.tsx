@@ -13,6 +13,7 @@ import TokenSavePage from "../pages/urls/TokenSavePage";
 
 import UsersPage from "../pages/admin/UsersPage";
 import TokensPage from "../pages/admin/TokensPage";
+import MyURLPage from "../pages/urls/MyURLPage";
 
 class App extends Component {
     render() {
@@ -25,18 +26,20 @@ class App extends Component {
                         <Route path="/" exact={true}>
                             <AllURLPage/>
                         </Route>
-                        <Route path="/authorize/:token">
-                            <TokenSavePage/>
+                        <Route path="/mine">
+                            <MyURLPage/>
                         </Route>
 
                         <Route path="/admin/users">
                             <UsersPage/>
                         </Route>
-
                         <Route path="/admin/tokens">
                             <TokensPage/>
                         </Route>
 
+                        <Route path="/authorize/:token">
+                            <TokenSavePage/>
+                        </Route>
                     </Switch>
                 </div>
             </Router>
