@@ -62,7 +62,9 @@ class Sidebar extends Component<Readonly<{}>, SidebarState> {
                     </nav>
                 </div>
                 <div className="Sidebar-bottom">
-                    <CurrentUser />
+                    <Suspense fallback={""}>
+                        <CurrentUser />
+                    </Suspense>
                 </div>
             </div>
         </div>
