@@ -34,7 +34,7 @@ export async function getUser(userID: string): Promise<User> {
         })
     };
 
-    let user = await get(`/users/${userID}`);
+    let user = await get(`/user/${userID}`);
 
     let user_data = await user.json();
 
