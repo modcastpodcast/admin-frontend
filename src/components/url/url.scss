@@ -1,0 +1,26 @@
+.URL {
+    background-color: #2C2F33;
+    width: 75%;
+    padding-left: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+
+    .longURL {
+        a {
+            color: #7289DA;
+            text-decoration: none;
+        }
+    }
+
+    .creator {
+        vertical-align: middle;
+        img {
+            vertical-align: middle;
+            display: inline-block;
+            height: 1.5em;
+            clip-path: circle(0.75em at center);
+        }
+    }
+}

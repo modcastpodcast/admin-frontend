@@ -1,0 +1,19 @@
+.CurrentUser {
+    display: flex;
+    width: 100%;
+
+    * {
+        vertical-align: middle;
+    }
+
+    .avatar {
+        clip-path: circle(30px at center);
+    }
+
+    .username {
+        font-weight: 900;
+        flex-grow: 1;
+        text-align: right;
+        align-self: center;
+    }
+}

@@ -1,0 +1,15 @@
+.App {
+    display: flex;
+    height: 100%;
+
+    .Sidebar {
+        padding-left: 30px;
+        padding-right: 30px;
+        background-color: #2C2F33;
+    }
+
+    .Body {
+        padding-left: 30px;
+        width: 80%;
+    }
+}
