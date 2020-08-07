@@ -1,0 +1,19 @@
+.User {
+    background-color: #2C2F33;
+    width: 75%;
+    padding-left: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+
+    .creator * {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 10px;
+    }
+
+    .administrator {
+        font-style: italic;
+    }
+}
