@@ -1,11 +1,9 @@
-import React, { Component } from "react";
-import usePromise from "react-promise-suspense"
+import React from "react";
 
 import URL from "../../components/url";
 
 import {Link} from "../../types";
-import {wrapPromise, WrappedPromise} from "../../utils";
-import { getAllURLs } from "../../api";
+import {WrappedPromise} from "../../utils";
 
 interface URLListProps {
     resource: WrappedPromise<Link[]>

@@ -32,7 +32,7 @@ class UserForm extends Component<UserFormProps, UserFormState> {
         e.preventDefault();
 
         createUserAccount(this.state.accountID, this.state.administrator).then(resp => {
-            if (resp.status == "success") {
+            if (resp.status === "success") {
                 document.location.reload();
             } else {
                 alert(resp.message)

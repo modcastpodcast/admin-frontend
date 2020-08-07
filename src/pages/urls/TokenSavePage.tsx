@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import { useParams, Redirect } from "react-router-dom";
 
 
 function TokenSavePage() {
-        let {token} = useParams();
+    let { token } = useParams();
 
-        localStorage.token = token;
+    localStorage.token = token;
 
-        return <Redirect to="/"></Redirect>
+    return <Redirect to="/"></Redirect>
 }
 
 export default TokenSavePage;
