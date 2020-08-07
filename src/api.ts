@@ -21,11 +21,9 @@ async function get(route: string) {
             })
         } catch(e) {
             redirectToAuthorize();
-            throw 403;
         }
     } else {
         redirectToAuthorize();
-        throw 403;
     }
 }
 
@@ -42,11 +40,9 @@ async function post(route: string, data: object) {
             })
         } catch(e) {
             redirectToAuthorize();
-            throw 403;
         }
     } else {
         redirectToAuthorize();
-        throw 403;
     }
 }
 
@@ -57,7 +53,7 @@ export async function getUser(userID: string): Promise<User> {
 
     let user = await get(`/user/${userID}`);
 
-    let user_data = await user.json();
+    let user_data = await user!.json();
 
     USER_CACHE[user_data.id] = user_data;
 
@@ -70,7 +66,7 @@ export async function getCurrentUser(): Promise<APIKey> {
 
     let user = await get("/me");
 
-    let currentToken = await user.json();
+    let currentToken = await user!.json();
 
     CURRENT_USER_CACHE = currentToken;
 
@@ -80,7 +76,7 @@ export async function getCurrentUser(): Promise<APIKey> {
 export async function getAllURLs(): Promise<Link[]> {
     let linksReq = await get("/links/all")
 
-    let rawLinks = await linksReq.json();
+    let rawLinks = await linksReq!.json();
 
     const links = [];
 
@@ -100,7 +96,7 @@ export async function getAllURLs(): Promise<Link[]> {
 export async function getMyURLs(): Promise<Link[]> {
     let linksReq = await get("/links/mine")
 
-    let rawLinks = await linksReq.json();
+    let rawLinks = await linksReq!.json();
 
     const links = [];
 
@@ -119,7 +115,7 @@ export async function getMyURLs(): Promise<Link[]> {
 
 export async function getAllUsers(): Promise<User[]> {
     let userTokensReq = await get("/admin/users");
-    let userTokens: APIKey[] = await userTokensReq.json();
+    let userTokens: APIKey[] = await userTokensReq!.json();
 
     let users = [];
 
@@ -139,7 +135,7 @@ export async function createUserAccount(userID: string, administrator: boolean):
         is_admin: administrator
     })
 
-    let resp = createRequest.json();
+    let resp = createRequest!.json();
 
     return resp;
 }
