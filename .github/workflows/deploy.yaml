@@ -13,8 +13,28 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+      - uses: borales/actions-yarn@v2.0.0
+        env:
+          REACT_APP_GIT_SHA: ${{ github.sha }}
+        with:
+          cmd: build
+
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1.0.0
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: modcast-podcast
+          SENTRY_PROJECT: modpod-url-shortener-frontend
+        with:
+          version: modpod-live-admin@${{ github.sha }}
+          environment: production
+          sourcemaps: ./build/static/js/
+
       - name: Build Docker image
-        run: docker build . --file Dockerfile -t modcastpodcast/link-shortener-frontend/frontend:${{ github.sha }} --build-arg git_sha=${{ github.sha }}
+        run: docker build . --file Dockerfile -t modcastpodcast/link-shortener-frontend/frontend:${{ github.sha }}
 
       - name: Publish Docker image
         uses: elgohr/Publish-Docker-Github-Action@master
