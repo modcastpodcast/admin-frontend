@@ -29,14 +29,14 @@ async function get(route: string) {
 
 export async function getUser(userID: string): Promise<User> {
     if (USER_CACHE[userID]) {
-        return new Promise((resolve) => {
-            resolve(USER_CACHE[userID]);
-        })
+        return USER_CACHE[userID];
     };
 
     let user = await get(`/user/${userID}`);
 
     let user_data = await user.json();
+
+    USER_CACHE[user_data.id] = user_data;
 
     return user_data;
 }
