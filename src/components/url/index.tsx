@@ -23,7 +23,7 @@ class URL extends Component<URLProps, {}> {
 
     render() {
         return <div className="URL">
-            <h2 className="shortCode">{this.props.link.creation_date}</h2>
+            <h2 className="shortCode">{this.props.link.short_code}</h2>
             <p className="longURL">Points to <a href={this.props.link.long_url}>{this.props.link.long_url}</a></p>
             <p className="creator">Created by <ProfilePicture id={this.props.link.creator.id} avatar={this.props.link.creator.avatar} size={32} discordSize={64}/> <strong>{this.props.link.creator.username}#{this.props.link.creator.discriminator}</strong></p>
             <p>{this.props.link.clicks} clicks • Created {this.formatCreated()} ago</p>
