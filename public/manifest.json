@@ -1,0 +1,15 @@
+{
+  "short_name": "modcast.live",
+  "name": "Modcast URL Shortener",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "1000x1000"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ff006e",
+  "background_color": "#ffffff"
+}
