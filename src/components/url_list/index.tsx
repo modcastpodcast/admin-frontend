@@ -13,12 +13,14 @@ class URLList extends Component<URLListProps> {
     render() {
         const urldata = usePromise(this.props.fetchMethod, []);
 
+        const urls = [];
+
         for (var url of urldata) {
-            urldata.push(<URL key={url.short_code} link={url}/>);
+            urls.push(<URL key={url.short_code} link={url}/>);
         }
 
         return <div className="urls">
-            {urldata}
+            {urls}
         </div>
     }
 }
