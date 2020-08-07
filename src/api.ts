@@ -97,6 +97,26 @@ export async function getAllURLs(): Promise<Link[]> {
     return links;
 }
 
+export async function getMyURLs(): Promise<Link[]> {
+    let linksReq = await get("/links/mine")
+
+    let rawLinks = await linksReq.json();
+
+    const links = [];
+
+    for (var rawLink of rawLinks) {
+        links.push({
+            short_code: rawLink.short_code,
+            long_url: rawLink.long_url,
+            clicks: rawLink.clicks,
+            creation_date: new Date(rawLink.creation_date * 1000),
+            creator: await getUser(rawLink.creator)
+        })
+    }
+
+    return links;
+}
+
 export async function getAllUsers(): Promise<User[]> {
     let userTokensReq = await get("/admin/users");
     let userTokens: APIKey[] = await userTokensReq.json();
