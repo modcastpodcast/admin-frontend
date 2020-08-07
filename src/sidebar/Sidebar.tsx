@@ -5,7 +5,7 @@ import logo from "./icon.png";
 
 import "./sidebar.scss";
 
-import CurrentUser from "./components/current_user";
+import CurrentUser from "../components/current_user";
 
 class Sidebar extends Component {
     render() {
