@@ -11,6 +11,9 @@ import './app.scss';
 import AllURLPage from "../pages/urls/AllURLPage";
 import TokenSavePage from "../pages/urls/TokenSavePage";
 
+import UsersPage from "../pages/admin/UsersPage";
+import TokensPage from "../pages/admin/TokensPage";
+
 class App extends Component {
     render() {
         return <div className="App">
@@ -22,10 +25,18 @@ class App extends Component {
                         <Route path="/" exact={true}>
                             <AllURLPage/>
                         </Route>
-
                         <Route path="/authorize/:token">
                             <TokenSavePage/>
                         </Route>
+
+                        <Route path="/admin/users">
+                            <UsersPage/>
+                        </Route>
+
+                        <Route path="/admin/tokens">
+                            <TokensPage/>
+                        </Route>
+
                     </Switch>
                 </div>
             </Router>
