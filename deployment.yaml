@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modcast-link-shortener-frontend
+spec:
+  revisionHistoryLimit: 2
+  replicas: 1
+  selector:
+    matchLabels:
+      app: modcast-link-shortener-frontend
+  template:
+    metadata:
+      labels:
+        app: modcast-link-shortener-frontend
+    spec:
+      containers:
+        - name: modcast-link-shortener-frontend
+          image: docker.pkg.github.com/modcastpodcast/link/frontend
+          imagePullPolicy: "IfNotPresent"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: modcast-link-shortener-frontend
+spec:
+  selector:
+    app: modcast-link-shortener-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
