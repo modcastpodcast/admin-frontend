@@ -6,6 +6,7 @@ import URL from "../../components/url";
 import {Link} from "../../types";
 
 import {getAllURLs, redirectToAuthorize} from "../../api";
+import { URLFormatOptions } from "url";
 
 interface AllURLsPageState {
     urls: Link[]
@@ -34,7 +35,7 @@ class AllURLsPage extends Component<Readonly<{}>, AllURLsPageState> {
         const urldata: URL[] = [];
 
         for (var url of this.state.urls) {
-            <URL link={url}/>
+            urldata.push(new URL({link: url}));
         }
 
         return <div>
