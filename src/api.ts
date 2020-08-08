@@ -11,7 +11,7 @@ export function redirectToAuthorize() {
     document.location.href = OAUTH2_AUTHORIZE;
 }
 
-async function get(route: string) {
+async function get(route: string): Promise<any> {
     if (localStorage.token) {
         try {
             return await fetch(`${API_BASE}${route}`, {
@@ -31,7 +31,7 @@ async function get(route: string) {
     }
 }
 
-async function post(route: string, data: object) {
+async function post(route: string, data: object): Promise<any> {
     if (localStorage.token) {
         try {
             return await fetch(`${API_BASE}${route}`, {
