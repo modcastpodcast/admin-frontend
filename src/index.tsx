@@ -19,7 +19,7 @@ console.log(`%c Environment: ${process.env.NODE_ENV}`, "color: #FB5607;");
 console.log(`%c Public URL: ${process.env.PUBLIC_URL}`, "color: #FB5607;");
 console.log(`%c Location: ${document.location}`, "color: #FB5607;");
 console.log(`%c Build version: modpod-live-admin@${process.env.REACT_APP_GIT_SHA}`, "color: #FB5607;");
-console.log("%cIf you want to chat about React, Python, TypeScript or Python, add joe#6000 on Discord!", "color: #3A86FF; font-size: 2em;");
+console.log("%cIf you want to chat about React, Python, TypeScript, Rust or Elixir, add joe#6000 on Discord!", "color: #3A86FF; font-size: 2em;");
 
 ReactDOM.render(
   <React.StrictMode>
