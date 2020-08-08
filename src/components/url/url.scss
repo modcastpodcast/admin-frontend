@@ -2,7 +2,6 @@
     background-color: #2C2F33;
     width: 75%;
     padding-left: 30px;
-    padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 20px;
     margin-bottom: 30px;
@@ -14,11 +13,39 @@
         }
     }
 
+    .shortCode {
+        padding-top: 20px;
+    }
+
     .creator {
         vertical-align: middle;
         img {
             vertical-align: middle;
             display: inline-block;
         }
+    }
+
+    .deleteButton {
+        opacity: 0;
+        float: right;
+        margin-top: 10px;
+        margin-right: 10px;
+        line-height: 6px;
+        background-color: #52585f;
+        padding: 10px;
+        border-radius: 60px;
+        transition: opacity 0.1s;
+        transition: background-color 0.1s;
+    }
+
+    .deleteButton:hover {
+        background-color: #7b828a;
+        cursor: pointer;
+    }
+}
+
+.URL:hover {
+    .deleteButton {
+        opacity: 1;
     }
 }

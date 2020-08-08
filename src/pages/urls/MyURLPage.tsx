@@ -12,7 +12,8 @@ import {getMyURLs} from "../../api";
 import { wrapPromise } from "../../utils";
 
 interface MyURLPageState {
-    showCreationModal: boolean
+    showCreationModal: boolean,
+    rerender: number
 }
 
 class MyURLPage extends Component<Readonly<{}>, MyURLPageState> {
@@ -20,7 +21,8 @@ class MyURLPage extends Component<Readonly<{}>, MyURLPageState> {
         super(props);
 
         this.state = {
-            showCreationModal: false
+            showCreationModal: false,
+            rerender: 0
         }
 
         this.displayModal = this.displayModal.bind(this);
@@ -46,12 +48,12 @@ class MyURLPage extends Component<Readonly<{}>, MyURLPageState> {
                 className="Modal"
                 overlayClassName="Overlay"
             >
-                <ShortCodeForm closeFunction={this.hideModal}/>
+                <ShortCodeForm setRerender={() => this.setState({rerender: this.state.rerender + 1})} closeFunction={this.hideModal}/>
             </Modal>
             <h1 className="page-title">My URLs</h1>
             <button onClick={this.displayModal} className="button primary">Create new short code</button>
             <Suspense fallback={<p className="page-subtitle">Loading URLs...</p>}>
-                <URLList resource={wrapPromise(getMyURLs())}/>
+                <URLList resource={wrapPromise(getMyURLs())} setRerender={() => this.setState({rerender: this.state.rerender + 1})}/>
             </Suspense>
         </div>
     }

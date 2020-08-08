@@ -10,7 +10,8 @@ interface UserFormState {
 }
 
 interface UserFormProps {
-    closeFunction: () => void
+    closeFunction: () => void,
+    setRerender: () => any
 }
 
 class CreateShortCode extends Component<UserFormProps, UserFormState> {
@@ -33,7 +34,8 @@ class CreateShortCode extends Component<UserFormProps, UserFormState> {
 
         createShortURL(this.state.shortCode, this.state.longURL).then(resp => {
             if (resp.status === "success") {
-                document.location.reload();
+                this.props.setRerender();
+                this.props.closeFunction();
             } else {
                 alert(resp.message)
             }

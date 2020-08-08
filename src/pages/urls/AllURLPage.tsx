@@ -13,7 +13,8 @@ import ShortCodeForm from "../../components/short_code_creation";
 Modal.setAppElement("#root")
 
 interface AllURLsState {
-    showCreationModal: boolean
+    showCreationModal: boolean,
+    rerender: number
 }
 
 class AllURLsPage extends Component<Readonly<{}>, AllURLsState> {
@@ -21,7 +22,8 @@ class AllURLsPage extends Component<Readonly<{}>, AllURLsState> {
         super(props);
 
         this.state = {
-            showCreationModal: false
+            showCreationModal: false,
+            rerender: 0
         }
 
         this.displayModal = this.displayModal.bind(this);
@@ -47,12 +49,12 @@ class AllURLsPage extends Component<Readonly<{}>, AllURLsState> {
                 className="Modal"
                 overlayClassName="Overlay"
             >
-                <ShortCodeForm closeFunction={this.hideModal}/>
+                <ShortCodeForm setRerender={() => this.setState({rerender: this.state.rerender + 1})} closeFunction={this.hideModal}/>
             </Modal>
             <h1 className="page-title">All URLs</h1>
             <button onClick={this.displayModal} className="button primary">Create new short code</button>
             <Suspense fallback={<p className="page-subtitle">Loading URLs...</p>}>
-                <URLList resource={wrapPromise(getAllURLs())}/>
+                <URLList resource={wrapPromise(getAllURLs())} setRerender={() => this.setState({rerender: this.state.rerender + 1})}/>
             </Suspense>
         </div>
     }

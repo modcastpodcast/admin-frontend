@@ -54,6 +54,29 @@ async function post(route: string, data: object): Promise<any> {
     }
 }
 
+async function deleteRequest(route: string, data: object): Promise<any> {
+    if (localStorage.token) {
+        try {
+            return await fetch(`${API_BASE}${route}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": localStorage.token,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+        } catch(e) {
+            redirectToAuthorize();
+            // Return a never resolving promise to stop continued execution
+            return new Promise(() => {});
+        }
+    } else {
+        redirectToAuthorize();
+        // Return a never resolving promise to stop continued execution
+        return new Promise(() => {});
+    }
+}
+
 export async function getUser(userID: string): Promise<User> {
     if (USER_CACHE[userID]) {
         return USER_CACHE[userID];
@@ -155,6 +178,16 @@ export async function createShortURL(shortCode: string, longURL: string): Promis
     })
 
     let resp = createRequest!.json();
+
+    return resp;
+}
+
+export async function deleteShortURL(shortCode: string): Promise<any> {
+    let del = await deleteRequest("/delete", {
+        short_code: shortCode
+    });
+
+    let resp = del!.json();
 
     return resp;
 }
