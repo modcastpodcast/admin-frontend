@@ -7,13 +7,13 @@ import {
 
 import Sidebar from "../components/sidebar/Sidebar";
 import './app.scss';
+import TokenSavePage from "../pages/urls/TokenSavePage";
 
 const UsersPage = React.lazy(() => import("../pages/admin/UsersPage"));
 const TokensPage = React.lazy(() => import("../pages/admin/TokensPage"));
 
 const MyURLPage = React.lazy(() => import("../pages/urls/MyURLPage"));
 const AllURLPage = React.lazy(() => import("../pages/urls/AllURLPage"));
-import TokenSavePage from "../pages/urls/TokenSavePage";
 
 class App extends Component {
     render() {
