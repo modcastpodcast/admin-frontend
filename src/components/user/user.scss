@@ -5,7 +5,12 @@
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 20px;
+    display: flex;
     margin-bottom: 30px;
+
+    .creator {
+        flex-grow: 1;
+    }
 
     .creator * {
         display: inline-block;
@@ -15,5 +20,18 @@
 
     .administrator {
         font-style: italic;
+    }
+
+    .adminButton {
+        text-align: right;
+        margin-right: 20px;
+        height: 30px;
+        color: #FFF;
+        border: none;
+        border-radius: 10px;
+        font-size: 1em;
+        font-weight: 600;
+        background-color: #7289DA;
+        align-self: center;
     }
 }

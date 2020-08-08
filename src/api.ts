@@ -150,6 +150,8 @@ export async function getAllUsers(): Promise<User[]> {
 
     let users = [];
 
+    console.log(userTokens);
+
     for (var userToken of userTokens) {
         let user = await getUser(userToken.creator);
         user.api_key = userToken;
