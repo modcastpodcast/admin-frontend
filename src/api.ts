@@ -147,3 +147,14 @@ export async function createUserAccount(userID: string, administrator: boolean):
 
     return resp;
 }
+
+export async function createShortURL(shortCode: string, longURL: string): Promise<any> {
+    let createRequest = await post("/create", {
+        short_code: shortCode,
+        long_url: longURL
+    })
+
+    let resp = createRequest!.json();
+
+    return resp;
+}
