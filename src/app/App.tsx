@@ -13,7 +13,7 @@ const TokensPage = React.lazy(() => import("../pages/admin/TokensPage"));
 
 const MyURLPage = React.lazy(() => import("../pages/urls/MyURLPage"));
 const AllURLPage = React.lazy(() => import("../pages/urls/AllURLPage"));
-const TokenSavePage = React.lazy(() => import("../pages/urls/TokenSavePage"));
+import TokenSavePage from "../pages/urls/TokenSavePage";
 
 class App extends Component {
     render() {
@@ -46,9 +46,7 @@ class App extends Component {
                         </Route>
 
                         <Route path="/authorize/:token">
-                            <Suspense fallback={<h1>Loading</h1>}>
-                                <TokenSavePage/>
-                            </Suspense>
+                            <TokenSavePage/>
                         </Route>
                     </Switch>
                 </div>
