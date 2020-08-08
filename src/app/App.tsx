@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Suspense} from "react";
 import {
     HashRouter as Router,
     Switch,
@@ -8,12 +8,12 @@ import {
 import Sidebar from "../components/sidebar/Sidebar";
 import './app.scss';
 
-import AllURLPage from "../pages/urls/AllURLPage";
-import TokenSavePage from "../pages/urls/TokenSavePage";
+const UsersPage = React.lazy(() => import("../pages/admin/UsersPage"));
+const TokensPage = React.lazy(() => import("../pages/admin/TokensPage"));
 
-import UsersPage from "../pages/admin/UsersPage";
-import TokensPage from "../pages/admin/TokensPage";
-import MyURLPage from "../pages/urls/MyURLPage";
+const MyURLPage = React.lazy(() => import("../pages/urls/MyURLPage"));
+const AllURLPage = React.lazy(() => import("../pages/urls/AllURLPage"));
+const TokenSavePage = React.lazy(() => import("../pages/urls/TokenSavePage"));
 
 class App extends Component {
     render() {
@@ -24,21 +24,31 @@ class App extends Component {
                 <div className="Body">
                     <Switch>
                         <Route path="/" exact={true}>
-                            <AllURLPage/>
+                            <Suspense fallback={<h1>Loading</h1>}>
+                                <AllURLPage/>
+                            </Suspense>
                         </Route>
                         <Route path="/mine">
-                            <MyURLPage/>
+                            <Suspense fallback={<h1>Loading</h1>}>
+                                <MyURLPage/>
+                            </Suspense>
                         </Route>
 
                         <Route path="/admin/users">
-                            <UsersPage/>
+                            <Suspense fallback={<h1>Loading</h1>}>
+                                <UsersPage/>
+                            </Suspense>
                         </Route>
                         <Route path="/admin/tokens">
-                            <TokensPage/>
+                            <Suspense fallback={<h1>Loading</h1>}>
+                                <TokensPage/>
+                            </Suspense>
                         </Route>
 
                         <Route path="/authorize/:token">
-                            <TokenSavePage/>
+                            <Suspense fallback={<h1>Loading</h1>}>
+                                <TokenSavePage/>
+                            </Suspense>
                         </Route>
                     </Switch>
                 </div>
