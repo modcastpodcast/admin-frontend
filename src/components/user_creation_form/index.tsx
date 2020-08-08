@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "./form.scss";
+import "../../form.scss";
 
 import {createUserAccount} from "../../api";
 
