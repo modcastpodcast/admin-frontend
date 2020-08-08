@@ -14,9 +14,8 @@ if (process.env.NODE_ENV === "production") {
 
 console.log("%c ModPod URLs", "color: #ff006e; font-size: 10em;");
 console.log("%cWelcome to the ModPod Administration system", "color: #8338EC; font-size: 3em;");
-console.log("%cTo report a bug, please provide the below inforation:", "color: #FB5607; font-size: 2em;");
+console.log("%cTo report a bug, please provide the below information:", "color: #FB5607; font-size: 2em;");
 console.log(`%c Environment: ${process.env.NODE_ENV}`, "color: #FB5607;");
-console.log(`%c Public URL: ${process.env.PUBLIC_URL}`, "color: #FB5607;");
 console.log(`%c Location: ${document.location}`, "color: #FB5607;");
 console.log(`%c Build version: modpod-live-admin@${process.env.REACT_APP_GIT_SHA}`, "color: #FB5607;");
 console.log("%cIf you want to chat about React, Python, TypeScript, Rust or Elixir, add joe#6000 on Discord!", "color: #3A86FF; font-size: 2em;");
