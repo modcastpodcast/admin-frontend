@@ -21,9 +21,13 @@ async function get(route: string) {
             })
         } catch(e) {
             redirectToAuthorize();
+            // Return a never resolving promise to stop continued execution
+            return new Promise(() => {});
         }
     } else {
         redirectToAuthorize();
+        // Return a never resolving promise to stop continued execution
+        return new Promise(() => {});
     }
 }
 
@@ -40,9 +44,13 @@ async function post(route: string, data: object) {
             })
         } catch(e) {
             redirectToAuthorize();
+            // Return a never resolving promise to stop continued execution
+            return new Promise(() => {});
         }
     } else {
         redirectToAuthorize();
+        // Return a never resolving promise to stop continued execution
+        return new Promise(() => {});
     }
 }
 
