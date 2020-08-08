@@ -1,0 +1,76 @@
+import React, { Component } from "react";
+
+import "../../form.scss";
+
+import {createShortURL} from "../../api";
+
+interface UserFormState {
+    shortCode: string,
+    longURL: string
+}
+
+interface UserFormProps {
+    closeFunction: () => void
+}
+
+class CreateShortCode extends Component<UserFormProps, UserFormState> {
+    constructor(props: Readonly<UserFormProps>) {
+        super(props);
+
+        this.state = {
+            shortCode: "",
+            longURL: ""
+        }
+
+        this.handleShortCodeChange = this.handleShortCodeChange.bind(this);
+        this.handleLongURLChange = this.handleLongURLChange.bind(this);
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        createShortURL(this.state.shortCode, this.state.longURL).then(resp => {
+            if (resp.status === "success") {
+                document.location.reload();
+            } else {
+                alert(resp.message)
+            }
+        })
+    }
+
+    handleShortCodeChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({
+            shortCode: event.currentTarget.value
+        })
+    }
+
+    handleLongURLChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({
+            longURL: event.currentTarget.value
+        })
+    }
+
+    render() {
+        return <form onSubmit={this.handleSubmit}>
+            <h1 className="page-title">Create short URL</h1>
+            <div className="form-row">
+                <p className="input-label">Short code</p>
+                <input type="text" value={this.state.shortCode} onChange={this.handleShortCodeChange} placeholder="modpod-abcdef"/>
+            </div>
+
+            <div className="form-row">
+                <p className="input-label">Long URL</p>
+                <input type="text" value={this.state.longURL} onChange={this.handleLongURLChange} placeholder="https://modcast.network/..."/>
+            </div>
+
+            <div className="form-row">
+                <input className="button primary" type="submit" value="Submit"/>
+            </div>
+            <button className="button danger" onClick={this.props.closeFunction}>Cancel</button>
+        </form>
+    }
+}
+
+export default CreateShortCode;
