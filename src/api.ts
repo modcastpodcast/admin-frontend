@@ -173,8 +173,6 @@ export async function getAllUsers(): Promise<User[]> {
 
     let users = [];
 
-    console.log(userTokens);
-
     for (var userToken of userTokens) {
         let user = await getUser(userToken.creator);
         user.api_key = userToken;
@@ -222,8 +220,6 @@ export async function updateShortURL(oldShortCode: string, newShortCode: string,
         short_code: newShortCode,
         long_url: longURL
     });
-
-    console.log("updating")
 
     let resp = await update!.json();
 
