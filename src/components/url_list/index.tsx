@@ -37,7 +37,7 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
         const urls = [];
 
         for (var url of this.props.resource.read()) {
-            if (url.long_url.indexOf(this.state.query) != -1 || url.short_code.indexOf(this.state.query) != -1)
+            if (url.long_url.indexOf(this.state.query) !== -1 || url.short_code.indexOf(this.state.query) !== -1)
             urls.push(<URL key={url.short_code} setRerender={this.props.setRerender} link={url}/>);
         }
 
