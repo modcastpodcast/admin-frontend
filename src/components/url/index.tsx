@@ -41,8 +41,8 @@ class URL extends Component<URLProps, {}> {
     render() {
         let deleteButton;
 
-        if (this.props.link.creator.id == currentUser.read().creator || currentUser.read().is_admin) {
-            deleteButton = <a onClick={this.deleteLink} className="deleteButton"><img src={trash} width={20}/></a>;
+        if (this.props.link.creator.id === currentUser.read().creator || currentUser.read().is_admin) {
+            deleteButton = <button onClick={this.deleteLink} className="deleteButton"><img alt="delete short url" src={trash} width={20}/></button>;
         }
 
         return <div className="URL">

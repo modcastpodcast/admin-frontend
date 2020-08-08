@@ -34,8 +34,8 @@
         background-color: #52585f;
         padding: 10px;
         border-radius: 60px;
-        transition: opacity 0.1s;
-        transition: background-color 0.1s;
+        transition: all 0.25s;
+        border: none;
     }
 
     .deleteButton:hover {
