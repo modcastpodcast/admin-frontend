@@ -54,6 +54,29 @@ async function post(route: string, data: object): Promise<any> {
     }
 }
 
+async function patch(route: string, data: object): Promise<any> {
+    if (localStorage.token) {
+        try {
+            return await fetch(`${API_BASE}${route}`, {
+                method: "PATCH",
+                headers: {
+                    "Authorization": localStorage.token,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+        } catch(e) {
+            redirectToAuthorize();
+            // Return a never resolving promise to stop continued execution
+            return new Promise(() => {});
+        }
+    } else {
+        redirectToAuthorize();
+        // Return a never resolving promise to stop continued execution
+        return new Promise(() => {});
+    }
+}
+
 async function deleteRequest(route: string, data: object): Promise<any> {
     if (localStorage.token) {
         try {
@@ -189,7 +212,20 @@ export async function deleteShortURL(shortCode: string): Promise<any> {
         short_code: shortCode
     });
 
-    let resp = del!.json();
+    let resp = await del!.json();
+
+    return resp;
+}
+
+export async function updateShortURL(oldShortCode: string, newShortCode: string, longURL: string) {
+    let update = await patch(`/update/${oldShortCode}`, {
+        short_code: newShortCode,
+        long_url: longURL
+    });
+
+    console.log("updating")
+
+    let resp = await update!.json();
 
     return resp;
 }
