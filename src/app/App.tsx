@@ -7,14 +7,14 @@ import {
 
 import Sidebar from "../components/sidebar/Sidebar";
 import './app.scss';
-import TokenSavePage from "../pages/urls/TokenSavePage";
 import * as Sentry from '@sentry/react';
+
+import MyURLPage from "../pages/urls/MyURLPage";
+import AllURLPage from "../pages/urls/AllURLPage";
+import TokenSavePage from "../pages/urls/TokenSavePage";
 
 const UsersPage = React.lazy(() => import("../pages/admin/UsersPage"));
 const TokensPage = React.lazy(() => import("../pages/admin/TokensPage"));
-
-const MyURLPage = React.lazy(() => import("../pages/urls/MyURLPage"));
-const AllURLPage = React.lazy(() => import("../pages/urls/AllURLPage"));
 
 function FallbackComponent() {
     return (
@@ -32,14 +32,10 @@ class App extends Component {
                     <div className="Body">
                         <Switch>
                             <Route path="/" exact={true}>
-                                <Suspense fallback={<h1>Loading</h1>}>
-                                    <AllURLPage/>
-                                </Suspense>
+                                <AllURLPage/>
                             </Route>
                             <Route path="/mine">
-                                <Suspense fallback={<h1>Loading</h1>}>
-                                    <MyURLPage/>
-                                </Suspense>
+                                <MyURLPage/>
                             </Route>
 
                             <Route path="/admin/users">
