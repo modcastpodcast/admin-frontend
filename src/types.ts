@@ -18,5 +18,6 @@ export interface Link {
     long_url: string,
     clicks: number,
     creation_date: Date,
-    creator: User
+    creator: User,
+    notes: string
 }
