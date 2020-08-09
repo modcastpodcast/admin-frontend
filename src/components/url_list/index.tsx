@@ -90,8 +90,14 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
     render() {
         const urls = [];
 
+        let q = this.state.query.toLowerCase();
+
         for (var url of this.props.resource.read()) {
-            if (url.long_url.indexOf(this.state.query) !== -1 || url.short_code.indexOf(this.state.query) !== -1)
+            if (
+                url.long_url.toLowerCase().indexOf(q) !== -1
+                || url.short_code.toLowerCase().indexOf(q) !== -1
+                || url.notes.toLowerCase().indexOf(q) !== -1
+            )
                 urls.push(<URL key={url.short_code} makeActive={this.activate} setRerender={this.props.setRerender} link={url}/>);
         }
 
