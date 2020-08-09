@@ -46,7 +46,7 @@ class Sidebar extends Component<Readonly<{}>, SidebarState> {
                 <div className="Sidebar-top">
                     <div className="header">
                         <img alt="modcast logo" src={logo} width={120} className="Sidebar-icon"></img>
-                        <h1 className="Sidebar-title">ModPod URLs</h1>
+                        <h1 className="Sidebar-title">ModPod</h1>
                     </div>
                     <nav className="Sidebar-nav">
                         <li className="nav-section">
