@@ -34,12 +34,12 @@ jobs:
           sourcemaps: ./build/static/js/
 
       - name: Build Docker image
-        run: docker build . --file Dockerfile -t modcastpodcast/link-shortener-frontend/frontend:${{ github.sha }}
+        run: docker build . --file Dockerfile -t modcastpodcast/admin-frontend/frontend:${{ github.sha }}
 
       - name: Publish Docker image
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: modcastpodcast/link-shortener-frontend/frontend:${{ github.sha }}
+          name: modcastpodcast/admin-frontend/frontend:${{ github.sha }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
@@ -62,7 +62,7 @@ jobs:
           namespace: 'default'
           manifests: |
             deployment.yaml
-          images: 'docker.pkg.github.com/modcastpodcast/link-shortener-frontend/frontend:${{ github.sha }}'
+          images: 'docker.pkg.github.com/modcastpodcast/admin-frontend/frontend:${{ github.sha }}'
           imagepullsecrets: |
             githubpackage
           kubectl-version: 'latest'

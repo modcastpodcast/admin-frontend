@@ -1,4 +1,4 @@
-# Modcast URL Shortener frontend
+# Modcast Admin frontend
 
 ### `yarn start`
 
