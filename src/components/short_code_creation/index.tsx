@@ -6,7 +6,8 @@ import {createShortURL} from "../../api";
 
 interface UserFormState {
     shortCode: string,
-    longURL: string
+    longURL: string,
+    notes: string
 }
 
 interface UserFormProps {
@@ -20,11 +21,13 @@ class CreateShortCode extends Component<UserFormProps, UserFormState> {
 
         this.state = {
             shortCode: "",
-            longURL: ""
+            longURL: "",
+            notes: ""
         }
 
         this.handleShortCodeChange = this.handleShortCodeChange.bind(this);
         this.handleLongURLChange = this.handleLongURLChange.bind(this);
+        this.handleNotesChange = this.handleNotesChange.bind(this)
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,7 +35,7 @@ class CreateShortCode extends Component<UserFormProps, UserFormState> {
     handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        createShortURL(this.state.shortCode, this.state.longURL).then(resp => {
+        createShortURL(this.state.shortCode, this.state.longURL, this.state.notes).then(resp => {
             if (resp.status === "success") {
                 this.props.setRerender();
                 this.props.closeFunction();
@@ -54,6 +57,12 @@ class CreateShortCode extends Component<UserFormProps, UserFormState> {
         })
     }
 
+    handleNotesChange(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({
+            notes: event.currentTarget.value
+        })
+    }
+
     render() {
         return <form onSubmit={this.handleSubmit}>
             <h1 className="page-title">Create short URL</h1>
@@ -65,6 +74,11 @@ class CreateShortCode extends Component<UserFormProps, UserFormState> {
             <div className="form-row">
                 <p className="input-label">Long URL</p>
                 <input type="text" value={this.state.longURL} onChange={this.handleLongURLChange} placeholder="https://modcast.network/..."/>
+            </div>
+
+            <div className="form-row">
+                <p className="input-label">Notes</p>
+                <input type="text" value={this.state.notes} onChange={this.handleNotesChange} placeholder="Notes on the link..."/>
             </div>
 
             <div className="form-row">

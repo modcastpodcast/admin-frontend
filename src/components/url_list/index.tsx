@@ -21,7 +21,8 @@ interface URLListState {
     showEditModal: boolean,
     editingURL?: Link,
     edited_short_code?: string,
-    edited_long_url?: string
+    edited_long_url?: string,
+    edited_notes?: string
 }
 
 class URLList extends Component<Readonly<URLListProps>, URLListState> {
@@ -37,6 +38,7 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
         this.activate = this.activate.bind(this);
         this.handleLongURLEdit = this.handleLongURLEdit.bind(this);
         this.handleShortCodeEdit = this.handleShortCodeEdit.bind(this);
+        this.handleNotesEdit = this.handleNotesEdit.bind(this);
         this.updateURL = this.updateURL.bind(this);
     }
 
@@ -51,7 +53,8 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
             showEditModal: true,
             editingURL: url,
             edited_short_code: url.short_code,
-            edited_long_url: url.long_url
+            edited_long_url: url.long_url,
+            edited_notes: url.notes
         })
     }
 
@@ -67,10 +70,16 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
         })
     }
 
+    handleNotesEdit(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({
+            edited_notes: event.currentTarget.value
+        })
+    }
+
     updateURL(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        updateShortURL(this.state.editingURL!.short_code, this.state.edited_short_code!, this.state.edited_long_url!).then(() => {
+        updateShortURL(this.state.editingURL!.short_code, this.state.edited_short_code!, this.state.edited_long_url!, this.state.edited_notes!).then(() => {
             this.setState({
                 showEditModal: false
             });
@@ -101,6 +110,11 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
                 <div className="form-row">
                     <p className="input-label">Long URL</p>
                     <input type="text" value={this.state.edited_long_url} onChange={this.handleLongURLEdit} placeholder="https://modcast.network/..."/>
+                </div>
+
+                <div className="form-row">
+                    <p className="input-label">Notes</p>
+                    <input type="text" value={this.state.edited_notes} onChange={this.handleNotesEdit} placeholder="A link about..."/>
                 </div>
 
                 <div className="form-row">

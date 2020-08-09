@@ -196,10 +196,11 @@ export async function createUserAccount(userID: string, administrator: boolean):
     return resp;
 }
 
-export async function createShortURL(shortCode: string, longURL: string): Promise<any> {
+export async function createShortURL(shortCode: string, longURL: string, notes: string): Promise<any> {
     let createRequest = await post("/create", {
         short_code: shortCode,
-        long_url: longURL
+        long_url: longURL,
+        notes: notes
     })
 
     let resp = createRequest!.json();
@@ -217,10 +218,11 @@ export async function deleteShortURL(shortCode: string): Promise<any> {
     return resp;
 }
 
-export async function updateShortURL(oldShortCode: string, newShortCode: string, longURL: string) {
+export async function updateShortURL(oldShortCode: string, newShortCode: string, longURL: string, notes: string) {
     let update = await patch(`/update/${oldShortCode}`, {
         short_code: newShortCode,
-        long_url: longURL
+        long_url: longURL,
+        notes: notes
     });
 
     let resp = await update!.json();
