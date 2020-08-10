@@ -53,7 +53,7 @@ class URL extends Component<URLProps, {}> {
 
         if (newCreator) {
             transferShortURL(this.props.link.short_code, newCreator).then(resp => {
-                if (resp.status != "success") {
+                if (resp.status !== "success") {
                     return alert(resp.message);
                 }
 
