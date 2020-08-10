@@ -27,9 +27,8 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: modcast-podcast
-          SENTRY_PROJECT: modpod-url-shortener-frontend
+          SENTRY_PROJECT: admin-frontend
         with:
-          version: modpod-live-admin@${{ github.sha }}
           environment: production
           sourcemaps: ./build/static/js/
 
