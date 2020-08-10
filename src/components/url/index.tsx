@@ -8,9 +8,10 @@ import ProfilePicture from "../profile_picture";
 
 import trash from "./trash.svg";
 import edit from "./edit.svg";
+import users from "./users.svg";
 
 import { wrapPromise, WrappedPromise } from "../../utils";
-import { getCurrentUser, deleteShortURL } from "../../api";
+import { getCurrentUser, deleteShortURL, transferShortURL } from "../../api";
 
 interface URLProps  {
     link: Link,
@@ -26,6 +27,7 @@ class URL extends Component<URLProps, {}> {
 
         this.deleteLink = this.deleteLink.bind(this);
         this.editLink = this.editLink.bind(this);
+        this.transferLink = this.transferLink.bind(this);
     }
 
     formatCreated() {
@@ -46,13 +48,35 @@ class URL extends Component<URLProps, {}> {
         this.props.makeActive(this.props.link);
     }
 
+    transferLink() {
+        let newCreator = prompt("Please enter the user ID of the new owner:", this.props.link.creator.id);
+
+        if (newCreator) {
+            transferShortURL(this.props.link.short_code, newCreator).then(resp => {
+                if (resp.status != "success") {
+                    return alert(resp.message);
+                }
+
+                this.props.setRerender();
+            })
+        }
+    }
+
     render() {
         let actionButtons;
 
-        if (this.props.link.creator.id === currentUser.read().creator || currentUser.read().is_admin) {
+        if (this.props.link.creator.id === currentUser.read().creator) {
             actionButtons = <div className="actions">
                 <button onClick={this.deleteLink} className="deleteButton"><img alt="delete short url" src={trash} width={20}/></button>
                 <button onClick={this.editLink} className="deleteButton"><img alt="delete short url" src={edit} width={20}/></button>
+            </div>;
+        }
+
+        if (currentUser.read().is_admin) {
+            actionButtons = <div className="actions">
+                <button onClick={this.deleteLink} className="deleteButton"><img alt="delete short url" src={trash} height={20} width={20}/></button>
+                <button onClick={this.editLink} className="deleteButton"><img alt="delete short url" src={edit} height={20} width={20}/></button>
+                <button onClick={this.transferLink} className="deleteButton"><img alt="delete short url" src={users} height={20} width={20}/></button>
             </div>;
         }
 

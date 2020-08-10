@@ -230,3 +230,14 @@ export async function updateShortURL(oldShortCode: string, newShortCode: string,
 
     return resp;
 }
+
+export async function transferShortURL(oldShortCode: string, newCreator: string) {
+    let update = await patch(`/link`, {
+        old_short_code: oldShortCode,
+        creator: newCreator
+    });
+
+    let resp = await update!.json();
+
+    return resp;
+}
