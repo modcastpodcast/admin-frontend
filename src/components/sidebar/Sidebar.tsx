@@ -46,18 +46,20 @@ class Sidebar extends Component<Readonly<{}>, SidebarState> {
                 <div className="Sidebar-top">
                     <div className="header">
                         <img alt="modcast logo" src={logo} width={120} className="Sidebar-icon"></img>
-                        <h1 className="Sidebar-title">ModPod</h1>
+                        <h1 className="Sidebar-title">ModPod Admin</h1>
                     </div>
                     <nav className="Sidebar-nav">
-                        <li className="nav-section">
-                            URL management
-                        </li>
-                        <li>
-                            <NavLink activeClassName="active-link" exact={true} to="/">All URLs</NavLink>
-                        </li>
-                        <li>
-                            <NavLink activeClassName="active-link" to="/mine">My URLs</NavLink>
-                        </li>
+                        <div>
+                            <li className="nav-section">
+                                URL management
+                            </li>
+                            <li>
+                                <NavLink activeClassName="active-link" exact={true} to="/">All URLs</NavLink>
+                            </li>
+                            <li>
+                                <NavLink activeClassName="active-link" to="/mine">My URLs</NavLink>
+                            </li>
+                        </div>
                         {this.state.adminSection}
                     </nav>
                 </div>

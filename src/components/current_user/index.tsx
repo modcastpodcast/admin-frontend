@@ -19,7 +19,7 @@ function CurrentUser() {
 
     return <div className="CurrentUser">
         <ProfilePicture id={userData.id} avatar={userData.avatar} size={60} discordSize={128}/>
-        <p className="username">Logged in as {userData.username}#{userData.discriminator}</p>
+        <p className="username">Logged in as {userData.username}</p>
     </div>
 }
 
