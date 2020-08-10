@@ -105,7 +105,7 @@ export async function getUser(userID: string): Promise<User> {
         return USER_CACHE[userID];
     };
 
-    let user = await get(`/user/${userID}`);
+    let user = await get(`/users/${userID}`);
 
     let user_data = await user!.json();
 
@@ -118,7 +118,7 @@ export async function getCurrentUser(): Promise<APIKey> {
     if (CURRENT_USER_CACHE)
         return CURRENT_USER_CACHE;
 
-    let user = await get("/me");
+    let user = await get("/users/me");
 
     let currentToken = await user!.json();
 
@@ -128,7 +128,7 @@ export async function getCurrentUser(): Promise<APIKey> {
 }
 
 export async function getAllURLs(): Promise<Link[]> {
-    let linksReq = await get("/links/all")
+    let linksReq = await get("/link")
 
     let rawLinks = await linksReq!.json();
 
@@ -149,7 +149,7 @@ export async function getAllURLs(): Promise<Link[]> {
 }
 
 export async function getMyURLs(): Promise<Link[]> {
-    let linksReq = await get("/links/mine")
+    let linksReq = await get("/link?mine=1")
 
     let rawLinks = await linksReq!.json();
 
@@ -186,7 +186,7 @@ export async function getAllUsers(): Promise<User[]> {
 }
 
 export async function createUserAccount(userID: string, administrator: boolean): Promise<any> {
-    let createRequest = await post("/admin/create_user", {
+    let createRequest = await post("/admin/users", {
         creator: userID,
         is_admin: administrator
     })
@@ -197,7 +197,7 @@ export async function createUserAccount(userID: string, administrator: boolean):
 }
 
 export async function createShortURL(shortCode: string, longURL: string, notes: string): Promise<any> {
-    let createRequest = await post("/create", {
+    let createRequest = await post("/link", {
         short_code: shortCode,
         long_url: longURL,
         notes: notes
@@ -209,7 +209,7 @@ export async function createShortURL(shortCode: string, longURL: string, notes: 
 }
 
 export async function deleteShortURL(shortCode: string): Promise<any> {
-    let del = await deleteRequest("/delete", {
+    let del = await deleteRequest("/link", {
         short_code: shortCode
     });
 
@@ -219,7 +219,8 @@ export async function deleteShortURL(shortCode: string): Promise<any> {
 }
 
 export async function updateShortURL(oldShortCode: string, newShortCode: string, longURL: string, notes: string) {
-    let update = await patch(`/update/${oldShortCode}`, {
+    let update = await patch(`/link`, {
+        old_short_code: oldShortCode,
         short_code: newShortCode,
         long_url: longURL,
         notes: notes
