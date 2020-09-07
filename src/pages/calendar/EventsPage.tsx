@@ -46,7 +46,7 @@ class EventsPage extends Component {
     render() {
         return <div>
             <h1 className="page-title">Calendar</h1>
-            <Suspense fallback={<p className="page-subtitle">Loading URLs...</p>}>
+            <Suspense fallback={<p className="page-subtitle">Loading events...</p>}>
                 <EventList eventResource={wrapPromise(fetchCalendarEvents())}/>
             </Suspense>
         </div>
