@@ -13,7 +13,7 @@ class EventListing extends Component<EventListingProps, {}> {
     render() {
         return <div className="Event">
             <h2 className="title">{this.props.event.title}</h2>
-            <p className="creator">Created by <ProfilePicture id={this.props.event.creator.id} avatar={this.props.event.creator.avatar} size={32} discordSize={64}/> <strong>{this.props.event.creator.username}#{this.props.event.creator.discriminator}</strong> • {this.props.event.repeatConfiguration == "once" ? "Does not repeat" : "Repeats " + this.props.event.repeatConfiguration}</p>
+            <p className="creator">Created by <ProfilePicture id={this.props.event.creator.id} avatar={this.props.event.creator.avatar} size={32} discordSize={64}/> <strong>{this.props.event.creator.username}#{this.props.event.creator.discriminator}</strong> • {this.props.event.repeatConfiguration === "once" ? "Does not repeat" : "Repeats " + this.props.event.repeatConfiguration}</p>
         </div>
     }
 }
