@@ -18,8 +18,6 @@ console.log("%cTo report a bug, please provide the below information:", "color: 
 console.log(`%c Environment: ${process.env.NODE_ENV}`, "color: #FB5607;");
 console.log(`%c Location: ${document.location}`, "color: #FB5607;");
 console.log(`%c Build version: modpod-live-admin@${process.env.REACT_APP_GIT_SHA}`, "color: #FB5607;");
-console.log("%cIf you want to chat about React, Python, TypeScript, Rust or Elixir, join us on Discord at https://modpod.live/modpod-web!", "color: #3A86FF; font-size: 2em;");
-
 ReactDOM.render(
   <React.StrictMode>
     <App />
