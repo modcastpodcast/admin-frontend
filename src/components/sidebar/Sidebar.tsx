@@ -60,6 +60,14 @@ class Sidebar extends Component<Readonly<{}>, SidebarState> {
                                 <NavLink activeClassName="active-link" to="/mine">My URLs</NavLink>
                             </li>
                         </div>
+                        <div>
+                            <li className="nav-section">
+                                Calendar
+                            </li>
+                            <li>
+                                <NavLink activeClassName="active-link" exact={true} to="/calendar">Calendar</NavLink>
+                            </li>
+                        </div>
                         {this.state.adminSection}
                     </nav>
                 </div>

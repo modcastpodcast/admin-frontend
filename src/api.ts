@@ -241,3 +241,23 @@ export async function transferShortURL(oldShortCode: string, newCreator: string)
 
     return resp;
 }
+
+export async function fetchCalendarEvents() {
+    let events = await get("/calendar");
+
+    let rawEvents = await events!.json()
+
+    const parsedEvents = [];
+
+    for (var rawEvent of rawEvents) {
+        parsedEvents.push({
+            id: rawEvent.id,
+            title: rawEvent.title,
+            date: new Date(rawEvent.date),
+            repeatConfiguration: rawEvent.repeat_configuration,
+            creator: await getUser(rawEvent.creator)
+        })
+    }
+
+    return parsedEvents;
+}

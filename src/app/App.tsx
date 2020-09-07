@@ -13,6 +13,8 @@ import MyURLPage from "../pages/urls/MyURLPage";
 import AllURLPage from "../pages/urls/AllURLPage";
 import TokenSavePage from "../pages/urls/TokenSavePage";
 
+import EventsPage from "../pages/calendar/EventsPage";
+
 const UsersPage = React.lazy(() => import("../pages/admin/UsersPage"));
 const TokensPage = React.lazy(() => import("../pages/admin/TokensPage"));
 
@@ -36,6 +38,10 @@ class App extends Component {
                             </Route>
                             <Route path="/mine">
                                 <MyURLPage/>
+                            </Route>
+
+                            <Route path="/calendar">
+                                <EventsPage/>
                             </Route>
 
                             <Route path="/admin/users">

@@ -1,0 +1,20 @@
+.Event {
+    background-color: #2C2F33;
+    width: 75%;
+    padding-left: 30px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+
+    .title {
+        padding-top: 20px;
+    }
+
+    .creator {
+        vertical-align: middle;
+        img {
+            vertical-align: middle;
+            display: inline-block;
+        }
+    }
+}

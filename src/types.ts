@@ -21,3 +21,10 @@ export interface Link {
     creator: User,
     notes: string
 }
+
+export interface Event {
+    title: string,
+    date: Date,
+    creator: User,
+    repeatConfiguration: string
+}
