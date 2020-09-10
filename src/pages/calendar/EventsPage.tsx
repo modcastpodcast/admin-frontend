@@ -1,5 +1,7 @@
 import React, { Component, Suspense } from "react";
 
+import Modal from "react-modal";
+
 import "../pageStyles.scss";
 
 import EventListing from "../../components/event_listing";
@@ -10,6 +12,8 @@ import lodash from "lodash";
 
 import {fetchCalendarEvents} from "../../api";
 import { WrappedPromise, wrapPromise } from "../../utils";
+
+Modal.setAppElement("#root");
 
 interface EventListProps {
     eventResource: WrappedPromise<any[]>
@@ -42,9 +46,43 @@ class EventList extends Component<EventListProps, {}> {
     }
 }
 
-class EventsPage extends Component {
+interface EventsPageState {
+    showCreationModal: boolean
+}
+
+class EventsPage extends Component<Readonly<{}>, EventsPageState> {
+    constructor(props: Readonly<{}>) {
+        super(props);
+
+        this.state = {
+            showCreationModal: false
+        }
+
+        this.displayModal = this.displayModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+    }
+
+    displayModal() {
+        this.setState({
+            showCreationModal: true
+        })
+    }
+
+    hideModal() {
+        this.setState({
+            showCreationModal: false
+        })
+    }
+
     render() {
         return <div>
+            <Modal 
+                isOpen={this.state.showCreationModal}
+                className="Modal"
+                overlayClassName="Overlay"
+            >
+                <h1>Create a new event</h1>
+            </Modal>
             <h1 className="page-title">Calendar</h1>
             <Suspense fallback={<p className="page-subtitle">Loading events...</p>}>
                 <EventList eventResource={wrapPromise(fetchCalendarEvents())}/>
