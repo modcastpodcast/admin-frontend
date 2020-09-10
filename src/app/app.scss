@@ -5,11 +5,22 @@
     .Sidebar {
         padding-left: 30px;
         padding-right: 30px;
-        background-color: #2C2F33;
     }
 
     .Body {
         padding-left: 30px;
         width: 80%;
+    }
+}
+
+.theme-dark {
+    .Sidebar {
+        background-color: #2C2F33;
+    }
+}
+
+.theme-light {
+    .Sidebar {
+        background-color: #f2f3f5;
     }
 }

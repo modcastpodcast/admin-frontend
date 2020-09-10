@@ -25,6 +25,11 @@
 
         .Sidebar-bottom {
             margin-bottom: 30px;
+
+            .theme-button {
+                width: 100%;
+                font-weight: 1000;
+            }
         }
 
         .Sidebar-nav {
@@ -36,7 +41,6 @@
                     margin-bottom: 5px;
 
                     text-decoration: none;
-                    color: white;
                     display: inline-block;
                     width: 100%;
 
@@ -54,9 +58,37 @@
                 }
             }
         }
+    }
+}
 
-        .nav-section {
-            color: #D1D1D1;
+.theme-dark {
+    .nav-section {
+        color: #D1D1D1;
+    }
+
+    .Sidebar-nav {
+        li {
+            a {
+                color: white;
+            }
         }
+    }
+}
+
+.theme-light {
+    .nav-section {
+        color: #333;
+    }
+
+    .Sidebar-nav {
+        li {
+            a {
+                color: black;
+            }
+        }
+    }
+
+    .active-link {
+        color: white !important;
     }
 }

@@ -1,5 +1,4 @@
 .User {
-    background-color: #2C2F33;
     width: 75%;
     padding-left: 30px;
     padding-top: 20px;
@@ -33,5 +32,17 @@
         font-weight: 600;
         background-color: #7289DA;
         align-self: center;
+    }
+}
+
+.theme-dark {
+    .User {
+        background-color: #2C2F33;
+    }
+}
+
+.theme-light {
+    .User {
+        background-color: #F0F0F0;
     }
 }

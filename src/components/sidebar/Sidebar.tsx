@@ -12,8 +12,12 @@ interface SidebarState {
     adminSection: JSX.Element | null,
 }
 
-class Sidebar extends Component<Readonly<{}>, SidebarState> {
-    constructor(props: Readonly<{}>) {
+interface SidebarProps {
+    toggleTheme: () => void
+}
+
+class Sidebar extends Component<SidebarProps, SidebarState> {
+    constructor(props: SidebarProps) {
         super(props);
 
         this.state = {
@@ -72,6 +76,7 @@ class Sidebar extends Component<Readonly<{}>, SidebarState> {
                     </nav>
                 </div>
                 <div className="Sidebar-bottom">
+                    <button onClick={this.props.toggleTheme} className="button primary theme-button">Toggle theme</button>
                     <Suspense fallback={""}>
                         <CurrentUser />
                     </Suspense>

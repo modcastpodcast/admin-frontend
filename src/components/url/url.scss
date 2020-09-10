@@ -1,5 +1,4 @@
 .URL {
-    background-color: #2C2F33;
     width: 75%;
     padding-left: 30px;
     padding-bottom: 20px;
@@ -35,7 +34,6 @@
         margin-top: 10px;
         margin-right: 10px;
         line-height: 6px;
-        background-color: #52585f;
         padding: 10px;
         border-radius: 60px;
         transition: all 0.25s;
@@ -51,5 +49,25 @@
 .URL:hover {
     .deleteButton {
         opacity: 1;
+    }
+}
+
+.theme-dark {
+    .URL {
+        background-color: #2C2F33;
+    }
+
+    .deleteButton {
+        background-color: #52585f;
+    }
+}
+
+.theme-light {
+    .URL {
+        background-color: #F0F0F0;
+    }
+
+    .deleteButton {
+        background-color: #E0E0E0;
     }
 }

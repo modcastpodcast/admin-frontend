@@ -24,12 +24,37 @@ function FallbackComponent() {
     )
 }
 
-class App extends Component {
+interface AppState {
+    theme: string
+}
+
+class App extends Component<Readonly<{}>, AppState> {
+    constructor(props: Readonly<{}>) {
+        super(props);
+
+        this.state = {
+            theme: localStorage.theme ? localStorage.theme : "dark"
+        }
+
+        this.toggleTheme = this.toggleTheme.bind(this);
+    }
+
+    toggleTheme() {
+        let newTheme = this.state.theme === "dark" ? "light" : "dark";
+        this.setState({
+            theme: newTheme
+        })
+
+        localStorage.theme = newTheme;
+    }
+
     render() {
+        document.body.setAttribute("class", `theme-${this.state.theme}`);
+
         return <Sentry.ErrorBoundary fallback={FallbackComponent} showDialog>
-            <div className="App">
+            <div className={`App`}>
                 <Router>
-                    <Sidebar></Sidebar>
+                    <Sidebar toggleTheme={this.toggleTheme}></Sidebar>
                     
                     <div className="Body">
                         <Switch>

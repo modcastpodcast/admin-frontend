@@ -18,3 +18,9 @@ input[type=text] {
     padding: 5px;
     padding-left: 10px;
 }
+
+.theme-light {
+    input[type=text] {
+        background-color: #F0F0F0;
+    }
+}

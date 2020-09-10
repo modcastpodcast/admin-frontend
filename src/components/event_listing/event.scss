@@ -1,5 +1,4 @@
 .Event {
-    background-color: #2C2F33;
     width: 75%;
     padding-left: 30px;
     padding-bottom: 20px;
@@ -16,5 +15,17 @@
             vertical-align: middle;
             display: inline-block;
         }
+    }
+}
+
+.theme-dark {
+    .Event {
+        background-color: #2C2F33;
+    }
+}
+
+.theme-light {
+    .Event {
+        background-color: #F0F0F0;
     }
 }

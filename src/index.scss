@@ -2,10 +2,23 @@
 
 body {
     font-family: "Hind", "Helvetica", sans-serif;
-    background-color: #23272A;
     margin: 0;
-    color: white;
     height: 100%;
+}
+
+* {
+    transition: background-color 0.5s;
+    tranition: color 0.5s;
+}
+
+.theme-dark {
+    background-color: #23272A;
+    color: white;
+}
+
+.theme-light {
+    background-color: #FFFFFF;
+    color: #333;
 }
 
 html {
@@ -22,12 +35,12 @@ html {
     padding-right: 20px;
     padding-left: 20px;
     font-size: 1.2em;
-    color: white;
     font-family: "Hind Siliguri", "Helvetica", "Arial", sans-serif;
     border: 0;
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 10px;
+    color: white;
 }
 
 .primary {
