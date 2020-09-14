@@ -243,7 +243,7 @@ export async function transferShortURL(oldShortCode: string, newCreator: string)
 }
 
 export async function fetchCalendarEvents() {
-    let events = await get("/calendar");
+    let events = await get("/calendar/");
 
     let rawEvents = await events!.json()
 
