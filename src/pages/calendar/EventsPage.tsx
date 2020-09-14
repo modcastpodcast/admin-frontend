@@ -83,7 +83,7 @@ class EventsPage extends Component<Readonly<{}>, EventsPageState> {
             >
                 <h1>Create a new event</h1>
             </Modal>
-            <h1 className="page-title">Calendar</h1>
+            <h1 className="page-title">Social Calendar</h1>
             <Suspense fallback={<p className="page-subtitle">Loading events...</p>}>
                 <EventList eventResource={wrapPromise(fetchCalendarEvents())}/>
             </Suspense>

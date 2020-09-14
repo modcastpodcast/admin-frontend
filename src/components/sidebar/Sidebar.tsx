@@ -69,7 +69,7 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
                                 Calendar
                             </li>
                             <li>
-                                <NavLink activeClassName="active-link" exact={true} to="/calendar">Calendar</NavLink>
+                                <NavLink activeClassName="active-link" exact={true} to="/calendar">Social Calendar</NavLink>
                             </li>
                         </div>
                         {this.state.adminSection}
