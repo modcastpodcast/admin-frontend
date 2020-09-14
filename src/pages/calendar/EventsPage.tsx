@@ -10,6 +10,8 @@ import moment from "moment";
 
 import lodash from "lodash";
 
+import {toast} from "react-toastify";
+
 import {fetchCalendarEvents} from "../../api";
 import { WrappedPromise, wrapPromise } from "../../utils";
 
@@ -74,6 +76,19 @@ class EventsPage extends Component<Readonly<{}>, EventsPageState> {
         })
     }
 
+    copyCalendar() {
+        let url = `https://modpod.live/api/calendar/ical?token=${localStorage.token}`;
+        navigator.clipboard.writeText(url).then(() => {
+            toast.dark(
+                <p>Copied to clipboard! Make sure not to share this URL with <em><strong>anyone</strong></em>.</p>
+            )
+        }).catch(() => {
+            toast.error(
+                "Could not copy to clipboard"
+            )
+        })
+    }
+
     render() {
         return <div>
             <Modal 
@@ -84,6 +99,7 @@ class EventsPage extends Component<Readonly<{}>, EventsPageState> {
                 <h1>Create a new event</h1>
             </Modal>
             <h1 className="page-title">Social Calendar</h1>
+            <button onClick={this.copyCalendar} className="button primary">Copy my calendar URL</button>
             <Suspense fallback={<p className="page-subtitle">Loading events...</p>}>
                 <EventList eventResource={wrapPromise(fetchCalendarEvents())}/>
             </Suspense>

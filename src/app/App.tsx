@@ -9,6 +9,9 @@ import Sidebar from "../components/sidebar/Sidebar";
 import './app.scss';
 import * as Sentry from '@sentry/react';
 
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css';
+
 import MyURLPage from "../pages/urls/MyURLPage";
 import AllURLPage from "../pages/urls/AllURLPage";
 import TokenSavePage from "../pages/urls/TokenSavePage";
@@ -53,6 +56,7 @@ class App extends Component<Readonly<{}>, AppState> {
 
         return <Sentry.ErrorBoundary fallback={FallbackComponent} showDialog>
             <div className={`App`}>
+                <ToastContainer/>
                 <Router>
                     <Sidebar toggleTheme={this.toggleTheme}></Sidebar>
                     
