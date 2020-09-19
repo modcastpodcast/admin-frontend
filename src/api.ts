@@ -20,11 +20,13 @@ async function get(route: string): Promise<any> {
                 }
             })
         } catch(e) {
+            console.log(new Error().stack);
             redirectToAuthorize();
             // Return a never resolving promise to stop continued execution
             return new Promise(() => {});
         }
     } else {
+        console.log(new Error().stack);
         redirectToAuthorize();
         // Return a never resolving promise to stop continued execution
         return new Promise(() => {});
