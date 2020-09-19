@@ -1,5 +1,7 @@
 import {User, APIKey, Link} from "./types";
 
+import {mapStackTrace} from "sourcemapped-stacktrace";
+
 const API_BASE = "https://modpod.live/api";
 const OAUTH2_AUTHORIZE = "https://modpod.live/oauth2/authorize";
 
@@ -20,13 +22,17 @@ async function get(route: string): Promise<any> {
                 }
             })
         } catch(e) {
-            console.log(new Error().stack);
+            mapStackTrace(new Error().stack, (stack) => {
+                console.log(stack.join("\n"))
+            });
             redirectToAuthorize();
             // Return a never resolving promise to stop continued execution
             return new Promise(() => {});
         }
     } else {
-        console.log(new Error().stack);
+        mapStackTrace(new Error().stack, (stack) => {
+            console.log(stack.join("\n"))
+        });
         redirectToAuthorize();
         // Return a never resolving promise to stop continued execution
         return new Promise(() => {});
