@@ -7,6 +7,7 @@ if (typeof importScripts === "function") {
         workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
 
         workbox.routing.registerRoute(
+            () => true,
             new workbox.strategies.NetworkFirst({
                     cacheName: "PRODUCTION",
             })
