@@ -24,16 +24,16 @@ async function get(route: string): Promise<any> {
         } catch(e) {
             mapStackTrace(new Error().stack, (stack) => {
                 console.log(stack.join("\n"))
+                redirectToAuthorize();
             });
-            redirectToAuthorize();
             // Return a never resolving promise to stop continued execution
             return new Promise(() => {});
         }
     } else {
         mapStackTrace(new Error().stack, (stack) => {
             console.log(stack.join("\n"))
+            redirectToAuthorize();
         });
-        redirectToAuthorize();
         // Return a never resolving promise to stop continued execution
         return new Promise(() => {});
     }
