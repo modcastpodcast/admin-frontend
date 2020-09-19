@@ -55,6 +55,7 @@ class App extends Component<Readonly<{}>, AppState> {
         document.body.setAttribute("class", `theme-${this.state.theme}`);
 
         if (document.location.hash.indexOf("/authorize/") !== -1) {
+            console.debug("Detected token in URL. Saving to localStorage")
             localStorage.token = document.location.hash.split("/")[2];
         }
 
