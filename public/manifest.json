@@ -3,7 +3,7 @@
   "name": "ModPod Admin",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "circle.png",
       "type": "image/png",
       "sizes": "1000x1000"
     }
