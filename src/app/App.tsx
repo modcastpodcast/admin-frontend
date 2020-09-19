@@ -2,7 +2,8 @@ import React, {Component, Suspense} from "react";
 import {
     HashRouter as Router,
     Switch,
-    Route
+    Route,
+    Redirect
 } from "react-router-dom";
 
 import Sidebar from "../components/sidebar/Sidebar";
@@ -14,7 +15,6 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 import MyURLPage from "../pages/urls/MyURLPage";
 import AllURLPage from "../pages/urls/AllURLPage";
-import TokenSavePage from "../pages/urls/TokenSavePage";
 
 import EventsPage from "../pages/calendar/EventsPage";
 
@@ -54,6 +54,10 @@ class App extends Component<Readonly<{}>, AppState> {
     render() {
         document.body.setAttribute("class", `theme-${this.state.theme}`);
 
+        if (document.location.hash.indexOf("/authorize/") != -1) {
+            localStorage.token = document.location.hash.split("/")[2];
+        }
+
         return <Sentry.ErrorBoundary fallback={FallbackComponent} showDialog>
             <div className={`App`}>
                 <ToastContainer/>
@@ -85,7 +89,7 @@ class App extends Component<Readonly<{}>, AppState> {
                             </Route>
 
                             <Route path="/authorize/:token">
-                                <TokenSavePage/>
+                                <Redirect to="/"></Redirect>
                             </Route>
                         </Switch>
                     </div>
