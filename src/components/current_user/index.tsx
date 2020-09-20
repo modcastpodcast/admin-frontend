@@ -7,32 +7,19 @@ import ProfilePicture from "../profile_picture";
 import {WrappedPromise, wrapPromise} from "../../utils";
 import { User } from "../../types";
 
-interface CurrentUserState {
-    dataRequest: WrappedPromise<User>
+interface CurrentUserProps {
+    userResource: WrappedPromise<User>
 }
 
-class CurrentUser extends Component<Readonly<{}>, CurrentUserState> {
-    constructor(props: Readonly<{}>) {
+class CurrentUser extends Component<CurrentUserProps, {}> {
+    constructor(props: CurrentUserProps) {
         super(props);
-
-        const dataRequest = wrapPromise((async () => {
-            let currentKey = await getCurrentUser();
-            let currentUser = await getUser(currentKey.creator);
-        
-            return currentUser;
-        })())
-
-        this.state = {
-            dataRequest,
-        }
     }
 
     render() {
-        const userData = this.state.dataRequest.read();
-
         return <div className="CurrentUser">
-            <ProfilePicture id={userData.id} avatar={userData.avatar} size={60} discordSize={128}/>
-            <p className="username">Logged in as {userData.username}</p>
+            <ProfilePicture id={this.props.userResource.read().id} avatar={this.props.userResource.read().avatar} size={60} discordSize={128}/>
+            <p className="username">Logged in as {this.props.userResource.read().username}</p>
         </div>
     }
 }

@@ -6,7 +6,8 @@ import logo from "./icon.png";
 import "./sidebar.scss";
 
 import CurrentUser from "../current_user";
-import { getCurrentUser } from "../../api";
+import { getCurrentUser, getUser } from "../../api";
+import { wrapPromise } from "../../utils";
 
 interface SidebarState {
     adminSection: JSX.Element | null,
@@ -45,6 +46,13 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
         }
     }
     render() {
+        const dataRequest = wrapPromise((async () => {
+            let currentKey = await getCurrentUser();
+            let currentUser = await getUser(currentKey.creator);
+        
+            return currentUser;
+        })())
+    
         return <div className="Sidebar-holder">
             <div className="Sidebar">
                 <div className="Sidebar-top">
@@ -78,7 +86,7 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
                 <div className="Sidebar-bottom">
                     <button onClick={this.props.toggleTheme} className="button primary theme-button">Toggle theme</button>
                     <Suspense fallback={""}>
-                        <CurrentUser />
+                        <CurrentUser userResource={wrapPromise(dataRequest)} />
                     </Suspense>
                 </div>
             </div>
