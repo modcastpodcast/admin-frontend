@@ -16,8 +16,8 @@ interface MyURLPageState {
     rerender: number
 }
 
-class MyURLPage extends Component<Readonly<{}>, MyURLPageState> {
-    constructor(props: Readonly<{}>) {
+class MyURLPage extends Component<Readonly<Record<string, unknown>>, MyURLPageState> {
+    constructor(props: Readonly<Record<string, unknown>>) {
         super(props);
 
         this.state = {
@@ -29,19 +29,19 @@ class MyURLPage extends Component<Readonly<{}>, MyURLPageState> {
         this.hideModal = this.hideModal.bind(this);
     }
 
-    displayModal() {
+    displayModal(): void {
         this.setState({
             showCreationModal: true
         })
     }
 
-    hideModal() {
+    hideModal(): void {
         this.setState({
             showCreationModal: false
         })
     }
 
-    render() {
+    render(): JSX.Element {
         return <div>
             <Modal 
                 isOpen={this.state.showCreationModal}

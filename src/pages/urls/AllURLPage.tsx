@@ -17,8 +17,8 @@ interface AllURLsState {
     rerender: number
 }
 
-class AllURLsPage extends Component<Readonly<{}>, AllURLsState> {
-    constructor(props: Readonly<{}>) {
+class AllURLsPage extends Component<Readonly<Record<string, unknown>>, AllURLsState> {
+    constructor(props: Readonly<Record<string, unknown>>) {
         super(props);
 
         this.state = {
@@ -30,19 +30,19 @@ class AllURLsPage extends Component<Readonly<{}>, AllURLsState> {
         this.hideModal = this.hideModal.bind(this);
     }
 
-    displayModal() {
+    displayModal(): void {
         this.setState({
             showCreationModal: true
         })
     }
 
-    hideModal() {
+    hideModal(): void {
         this.setState({
             showCreationModal: false
         })
     }
 
-    render() {
+    render(): JSX.Element {
         return <div>
             <Modal 
                 isOpen={this.state.showCreationModal}
