@@ -16,24 +16,17 @@ import { getCurrentUser, deleteShortURL, transferShortURL } from "../../api";
 interface URLProps  {
     link: Link,
     setRerender: () => any,
-    makeActive: (url: Link) => any
-}
-
-interface URLState {
+    makeActive: (url: Link) => any,
     currentUser: WrappedPromise<APIKey>
 }
 
-class URL extends Component<URLProps, URLState> {
+class URL extends Component<URLProps, {}> {
     constructor(props: URLProps) {
         super(props);
 
         this.deleteLink = this.deleteLink.bind(this);
         this.editLink = this.editLink.bind(this);
         this.transferLink = this.transferLink.bind(this);
-
-        this.state = {
-            currentUser: wrapPromise(getCurrentUser())
-        }
     }
 
     formatCreated() {
@@ -71,14 +64,14 @@ class URL extends Component<URLProps, URLState> {
     render() {
         let actionButtons;
 
-        if (this.props.link.creator.id === this.state.currentUser.read().creator) {
+        if (this.props.link.creator.id === this.props.currentUser.read().creator) {
             actionButtons = <div className="actions">
                 <button onClick={this.deleteLink} className="deleteButton"><img alt="delete short url" src={trash} width={20}/></button>
                 <button onClick={this.editLink} className="deleteButton"><img alt="delete short url" src={edit} width={20}/></button>
             </div>;
         }
 
-        if (this.state.currentUser.read().is_admin) {
+        if (this.props.currentUser.read().is_admin) {
             actionButtons = <div className="actions">
                 <button onClick={this.deleteLink} className="deleteButton"><img alt="delete short url" src={trash} height={20} width={20}/></button>
                 <button onClick={this.editLink} className="deleteButton"><img alt="delete short url" src={edit} height={20} width={20}/></button>

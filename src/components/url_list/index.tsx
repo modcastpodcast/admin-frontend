@@ -6,8 +6,8 @@ import URL from "../../components/url";
 import "./url_list.scss";
 
 import {Link} from "../../types";
-import {WrappedPromise} from "../../utils";
-import { updateShortURL } from "../../api";
+import {WrappedPromise, wrapPromise} from "../../utils";
+import { getCurrentUser, updateShortURL } from "../../api";
 
 Modal.setAppElement("#root");
 
@@ -88,6 +88,7 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
     }
 
     render() {
+        const userRequest = wrapPromise(getCurrentUser());
         const urls = [];
 
         let q = this.state.query.toLowerCase();
@@ -98,7 +99,7 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
                 || url.short_code.toLowerCase().indexOf(q) !== -1
                 || url.notes.toLowerCase().indexOf(q) !== -1
             )
-                urls.push(<URL key={url.short_code} makeActive={this.activate} setRerender={this.props.setRerender} link={url}/>);
+                urls.push(<URL key={url.short_code} makeActive={this.activate} setRerender={this.props.setRerender} currentUser={userRequest} link={url}/>);
         }
 
         let editForm;
