@@ -13,7 +13,7 @@ Modal.setAppElement("#root");
 
 interface URLListProps {
     resource: WrappedPromise<Link[]>,
-    setRerender: () => any
+    setRerender: () => void
 }
 
 interface URLListState {
@@ -42,13 +42,13 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
         this.updateURL = this.updateURL.bind(this);
     }
 
-    handleSearch(event: React.FormEvent<HTMLInputElement>) {
+    handleSearch(event: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             query: event.currentTarget.value
         })
     }
 
-    activate(url: Link) {
+    activate(url: Link): void {
         this.setState({
             showEditModal: true,
             editingURL: url,
@@ -58,28 +58,32 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
         })
     }
 
-    handleLongURLEdit(event: React.FormEvent<HTMLInputElement>) {
+    handleLongURLEdit(event: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             edited_long_url: event.currentTarget.value
         })
     }
 
-    handleShortCodeEdit(event: React.FormEvent<HTMLInputElement>) {
+    handleShortCodeEdit(event: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             edited_short_code: event.currentTarget.value
         })
     }
 
-    handleNotesEdit(event: React.FormEvent<HTMLInputElement>) {
+    handleNotesEdit(event: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             edited_notes: event.currentTarget.value
         })
     }
 
-    updateURL(event: React.FormEvent<HTMLFormElement>) {
+    updateURL(event: React.FormEvent<HTMLFormElement>): void {
         event.preventDefault();
 
-        updateShortURL(this.state.editingURL!.short_code, this.state.edited_short_code!, this.state.edited_long_url!, this.state.edited_notes!).then(() => {
+        if (!this.state.editingURL || !this.state.edited_short_code || !this.state.edited_long_url || !this.state.edited_notes) {
+            return;
+        }
+
+        updateShortURL(this.state.editingURL.short_code, this.state.edited_short_code, this.state.edited_long_url, this.state.edited_notes).then(() => {
             this.setState({
                 showEditModal: false
             });
@@ -87,13 +91,13 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
         })
     }
 
-    render() {
+    render(): JSX.Element {
         const userRequest = wrapPromise(getCurrentUser());
         const urls = [];
 
-        let q = this.state.query.toLowerCase();
+        const q = this.state.query.toLowerCase();
 
-        for (var url of this.props.resource.read()) {
+        for (const url of this.props.resource.read()) {
             if (
                 url.long_url.toLowerCase().indexOf(q) !== -1
                 || url.short_code.toLowerCase().indexOf(q) !== -1
@@ -105,7 +109,7 @@ class URLList extends Component<Readonly<URLListProps>, URLListState> {
         let editForm;
 
         if (this.state.editingURL) {
-            let link = this.state.editingURL;
+            const link = this.state.editingURL;
 
             editForm = <form onSubmit={this.updateURL}>
                 <h1>Editing {link.short_code}</h1>

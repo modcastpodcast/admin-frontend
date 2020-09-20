@@ -19,6 +19,7 @@ interface UsersPageState {
 }
 
 function Users() {
+
     return <div>
         <p className="page-subtitle">{userListResource.read().length} registered users</p>
         {
@@ -29,8 +30,8 @@ function Users() {
     </div>
 }
 
-class UsersPage extends Component<Readonly<{}>, UsersPageState> {
-    constructor(props: Readonly<{}>) {
+class UsersPage extends Component<Readonly<Record<string, unknown>>, UsersPageState> {
+    constructor(props: Readonly<Record<string, unknown>>) {
         super(props);
 
         this.state = {
@@ -41,19 +42,19 @@ class UsersPage extends Component<Readonly<{}>, UsersPageState> {
         this.hideModal = this.hideModal.bind(this);
     }
 
-    displayModal() {
+    displayModal(): void {
         this.setState({
             showCreationModal: true
         })
     }
 
-    hideModal() {
+    hideModal(): void {
         this.setState({
             showCreationModal: false
         })
     }
 
-    render() {
+    render(): JSX.Element {
         return <div>
             <h1 className="page-title">User accounts</h1>
             <Modal 

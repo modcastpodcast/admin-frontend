@@ -28,7 +28,7 @@ class UserForm extends Component<UserFormProps, UserFormState> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
 
         createUserAccount(this.state.accountID, this.state.administrator).then(resp => {
@@ -40,19 +40,19 @@ class UserForm extends Component<UserFormProps, UserFormState> {
         })
     }
 
-    handleAccountIDChange(event: React.FormEvent<HTMLInputElement>) {
+    handleAccountIDChange(event: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             accountID: event.currentTarget.value
         })
     }
 
-    handleAdministratorChange(event: React.FormEvent<HTMLInputElement>) {
+    handleAdministratorChange(event: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             administrator: event.currentTarget.checked
         })
     }
 
-    render() {
+    render(): JSX.Element {
         return <form onSubmit={this.handleSubmit}>
             <h1 className="page-title">Create user</h1>
             <div className="form-row">

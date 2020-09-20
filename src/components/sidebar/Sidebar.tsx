@@ -26,8 +26,8 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
         }
     }
 
-    async componentDidMount() {
-        let currentUser = await getCurrentUser();
+    async componentDidMount(): Promise<void> {
+        const currentUser = await getCurrentUser();
 
         if (currentUser.is_admin) {
             this.setState({
@@ -45,10 +45,11 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
             })
         }
     }
-    render() {
+
+    render(): JSX.Element {
         const dataRequest = wrapPromise((async () => {
-            let currentKey = await getCurrentUser();
-            let currentUser = await getUser(currentKey.creator);
+            const currentKey = await getCurrentUser();
+            const currentUser = await getUser(currentKey.creator);
         
             return currentUser;
         })())

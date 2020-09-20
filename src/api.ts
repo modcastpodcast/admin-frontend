@@ -1,4 +1,4 @@
-import {User, APIKey, Link} from "./types";
+import {User, APIKey, Link, Event} from "./types";
 
 const API_BASE = "https://modpod.live/api";
 const OAUTH2_AUTHORIZE = "https://modpod.live/oauth2/authorize";
@@ -7,11 +7,11 @@ const USER_CACHE: { [id: string] : User } = {}
 
 let CURRENT_USER_CACHE: APIKey | null = null;
 
-export function redirectToAuthorize() {
+export function redirectToAuthorize(): void {
     document.location.href = OAUTH2_AUTHORIZE;
 }
 
-async function get(route: string): Promise<any> {
+async function get(route: string): Promise<Response> {
     if (localStorage.token) {
         try {
             return await fetch(`${API_BASE}${route}`, {
@@ -22,16 +22,16 @@ async function get(route: string): Promise<any> {
         } catch(e) {
             redirectToAuthorize();
             // Return a never resolving promise to stop continued execution
-            return new Promise(() => {});
+            return new Promise(() => null);
         }
     } else {
         redirectToAuthorize();
         // Return a never resolving promise to stop continued execution
-        return new Promise(() => {});
+        return new Promise(() => null);
     }
 }
 
-async function post(route: string, data: object): Promise<any> {
+async function post(route: string, data: Record<string, unknown>): Promise<Response> {
     if (localStorage.token) {
         try {
             return await fetch(`${API_BASE}${route}`, {
@@ -45,16 +45,16 @@ async function post(route: string, data: object): Promise<any> {
         } catch(e) {
             redirectToAuthorize();
             // Return a never resolving promise to stop continued execution
-            return new Promise(() => {});
+            return new Promise(() => null);
         }
     } else {
         redirectToAuthorize();
         // Return a never resolving promise to stop continued execution
-        return new Promise(() => {});
+        return new Promise(() => null);
     }
 }
 
-async function patch(route: string, data: object): Promise<any> {
+async function patch(route: string, data: Record<string, unknown>): Promise<Response> {
     if (localStorage.token) {
         try {
             return await fetch(`${API_BASE}${route}`, {
@@ -68,16 +68,16 @@ async function patch(route: string, data: object): Promise<any> {
         } catch(e) {
             redirectToAuthorize();
             // Return a never resolving promise to stop continued execution
-            return new Promise(() => {});
+            return new Promise(() => null);
         }
     } else {
         redirectToAuthorize();
         // Return a never resolving promise to stop continued execution
-        return new Promise(() => {});
+        return new Promise(() => null);
     }
 }
 
-async function deleteRequest(route: string, data: object): Promise<any> {
+async function deleteRequest(route: string, data: Record<string, unknown>): Promise<Response> {
     if (localStorage.token) {
         try {
             return await fetch(`${API_BASE}${route}`, {
@@ -91,23 +91,27 @@ async function deleteRequest(route: string, data: object): Promise<any> {
         } catch(e) {
             redirectToAuthorize();
             // Return a never resolving promise to stop continued execution
-            return new Promise(() => {});
+            return new Promise(() => null);
         }
     } else {
         redirectToAuthorize();
         // Return a never resolving promise to stop continued execution
-        return new Promise(() => {});
+        return new Promise(() => null);
     }
 }
 
 export async function getUser(userID: string): Promise<User> {
     if (USER_CACHE[userID]) {
         return USER_CACHE[userID];
-    };
+    }
 
-    let user = await get(`/users/${userID}`);
+    const user = await get(`/users/${userID}`);
 
-    let user_data = await user!.json();
+    if (!user) {
+        throw new Error("No user returned");
+    }
+
+    const user_data = await user.json();
 
     USER_CACHE[user_data.id] = user_data;
 
@@ -118,9 +122,13 @@ export async function getCurrentUser(): Promise<APIKey> {
     if (CURRENT_USER_CACHE)
         return CURRENT_USER_CACHE;
 
-    let user = await get("/users/me");
+    const user = await get("/users/me");
 
-    let currentToken = await user!.json();
+    if (!user) {
+        throw new Error("No user returned");
+    }
+
+    const currentToken = await user.json();
 
     CURRENT_USER_CACHE = currentToken;
 
@@ -128,13 +136,17 @@ export async function getCurrentUser(): Promise<APIKey> {
 }
 
 export async function getAllURLs(): Promise<Link[]> {
-    let linksReq = await get("/link")
+    const linksReq = await get("/link")
 
-    let rawLinks = await linksReq!.json();
+    if (!linksReq) {
+        throw new Error("Could not fetch links")
+    }
+
+    const rawLinks = await linksReq.json();
 
     const links = [];
 
-    for (var rawLink of rawLinks) {
+    for (const rawLink of rawLinks) {
         links.push({
             short_code: rawLink.short_code,
             long_url: rawLink.long_url,
@@ -149,13 +161,17 @@ export async function getAllURLs(): Promise<Link[]> {
 }
 
 export async function getMyURLs(): Promise<Link[]> {
-    let linksReq = await get("/link?mine=1")
+    const linksReq = await get("/link?mine=1")
 
-    let rawLinks = await linksReq!.json();
+    if (!linksReq) {
+        throw new Error("Could not fetch links")
+    }
+
+    const rawLinks = await linksReq.json();
 
     const links = [];
 
-    for (var rawLink of rawLinks) {
+    for (const rawLink of rawLinks) {
         links.push({
             short_code: rawLink.short_code,
             long_url: rawLink.long_url,
@@ -170,13 +186,18 @@ export async function getMyURLs(): Promise<Link[]> {
 }
 
 export async function getAllUsers(): Promise<User[]> {
-    let userTokensReq = await get("/admin/users");
-    let userTokens: APIKey[] = await userTokensReq!.json();
+    const userTokensReq = await get("/admin/users");
 
-    let users = [];
+    if (!userTokensReq) {
+        throw new Error("No users returned")
+    }
 
-    for (var userToken of userTokens) {
-        let user = await getUser(userToken.creator);
+    const userTokens: APIKey[] = await userTokensReq.json();
+
+    const users = [];
+
+    for (const userToken of userTokens) {
+        const user = await getUser(userToken.creator);
         user.api_key = userToken;
 
         users.push(user);
@@ -185,71 +206,79 @@ export async function getAllUsers(): Promise<User[]> {
     return users;
 }
 
-export async function createUserAccount(userID: string, administrator: boolean): Promise<any> {
-    let createRequest = await post("/admin/users", {
+export async function createUserAccount(userID: string, administrator: boolean): Promise<Record<string, unknown>> {
+    const createRequest = await post("/admin/users", {
         creator: userID,
         is_admin: administrator
     })
 
-    let resp = createRequest!.json();
+    if (!createRequest) {
+        throw new Error("Could not create user account")
+    }
+
+    const resp = createRequest.json();
 
     return resp;
 }
 
-export async function createShortURL(shortCode: string, longURL: string, notes: string): Promise<any> {
-    let createRequest = await post("/link", {
+export async function createShortURL(shortCode: string, longURL: string, notes: string): Promise<Record<string, unknown>> {
+    const createRequest = await post("/link", {
         short_code: shortCode,
         long_url: longURL,
         notes: notes
     })
 
-    let resp = createRequest!.json();
+    if (!createRequest) {
+        throw new Error("Could not create short URL account")
+    }
+
+    const resp = createRequest.json();
 
     return resp;
 }
 
-export async function deleteShortURL(shortCode: string): Promise<any> {
-    let del = await deleteRequest("/link", {
+export async function deleteShortURL(shortCode: string): Promise<Record<string, unknown>> {
+    const del = await deleteRequest("/link", {
         short_code: shortCode
     });
 
-    let resp = await del!.json();
+    const resp = await del.json();
 
     return resp;
 }
 
-export async function updateShortURL(oldShortCode: string, newShortCode: string, longURL: string, notes: string) {
-    let update = await patch(`/link`, {
+export async function updateShortURL(oldShortCode: string, newShortCode: string, longURL: string, notes: string): Promise<Record<string, unknown>> {
+    const update = await patch(`/link`, {
         old_short_code: oldShortCode,
         short_code: newShortCode,
         long_url: longURL,
         notes: notes
     });
 
-    let resp = await update!.json();
+    const resp = await update.json();
 
     return resp;
 }
 
-export async function transferShortURL(oldShortCode: string, newCreator: string) {
-    let update = await patch(`/link`, {
+export async function transferShortURL(oldShortCode: string, newCreator: string): Promise<Record<string, unknown>> {
+    const update = await patch(`/link`, {
         old_short_code: oldShortCode,
         creator: newCreator
     });
 
-    let resp = await update!.json();
+    const resp = await update.json();
 
     return resp;
 }
 
-export async function fetchCalendarEvents() {
-    let events = await get("/calendar/");
+export async function fetchCalendarEvents(): Promise<Event[]> {
+    const events = await get("/calendar/");
 
-    let rawEvents = await events!.json()
+    const rawEvents = await events.json()
 
     const parsedEvents = [];
 
-    for (var rawEvent of rawEvents) {
+    for (const rawEvent of rawEvents) {
         parsedEvents.push({
             id: rawEvent.id,
             title: rawEvent.title,

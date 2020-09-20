@@ -12,7 +12,7 @@ interface UserFormState {
 
 interface UserFormProps {
     closeFunction: () => void,
-    setRerender: () => any
+    setRerender: () => void
 }
 
 class CreateShortCode extends Component<UserFormProps, UserFormState> {
@@ -32,7 +32,7 @@ class CreateShortCode extends Component<UserFormProps, UserFormState> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
 
         createShortURL(this.state.shortCode, this.state.longURL, this.state.notes).then(resp => {
@@ -45,25 +45,25 @@ class CreateShortCode extends Component<UserFormProps, UserFormState> {
         })
     }
 
-    handleShortCodeChange(event: React.FormEvent<HTMLInputElement>) {
+    handleShortCodeChange(event: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             shortCode: event.currentTarget.value
         })
     }
 
-    handleLongURLChange(event: React.FormEvent<HTMLInputElement>) {
+    handleLongURLChange(event: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             longURL: event.currentTarget.value
         })
     }
 
-    handleNotesChange(event: React.FormEvent<HTMLInputElement>) {
+    handleNotesChange(event: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             notes: event.currentTarget.value
         })
     }
 
-    render() {
+    render(): JSX.Element {
         return <form onSubmit={this.handleSubmit}>
             <h1 className="page-title">Create short URL</h1>
             <div className="form-row">

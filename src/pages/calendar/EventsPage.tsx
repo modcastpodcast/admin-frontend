@@ -14,29 +14,30 @@ import {toast} from "react-toastify";
 
 import {fetchCalendarEvents} from "../../api";
 import { WrappedPromise, wrapPromise } from "../../utils";
+import { Event } from "../../types";
 
 Modal.setAppElement("#root");
 
 interface EventListProps {
-    eventResource: WrappedPromise<any[]>
+    eventResource: WrappedPromise<Event[]>
 }
 
-class EventList extends Component<EventListProps, {}> {
+class EventList extends Component<EventListProps, Record<string, unknown>> {
     render() {
         const events = this.props.eventResource.read();
 
-        let grouped = lodash.groupBy(events, "date");
+        const grouped = lodash.groupBy(events, "date");
 
         const sections = [];
 
-        for (var date of Object.keys(grouped)) {
+        for (const date of Object.keys(grouped)) {
             const sectionEvents = [];
 
-            for (var event of grouped[date]) {
+            for (const event of grouped[date]) {
                 sectionEvents.push(<EventListing key={event.id} event={event}></EventListing>)
             }
 
-            let formattedDate = moment(date).format('dddd Do MMMM YYYY');
+            const formattedDate = moment(date).format('dddd Do MMMM YYYY');
 
             sections.push(<div key={date} className="section">
                 <h1>{formattedDate}</h1>
@@ -52,8 +53,8 @@ interface EventsPageState {
     showCreationModal: boolean
 }
 
-class EventsPage extends Component<Readonly<{}>, EventsPageState> {
-    constructor(props: Readonly<{}>) {
+class EventsPage extends Component<Readonly<Record<string, unknown>>, EventsPageState> {
+    constructor(props: Readonly<Record<string, unknown>>) {
         super(props);
 
         this.state = {
@@ -64,20 +65,20 @@ class EventsPage extends Component<Readonly<{}>, EventsPageState> {
         this.hideModal = this.hideModal.bind(this);
     }
 
-    displayModal() {
+    displayModal(): void {
         this.setState({
             showCreationModal: true
         })
     }
 
-    hideModal() {
+    hideModal(): void {
         this.setState({
             showCreationModal: false
         })
     }
 
-    copyCalendar() {
-        let url = `https://modpod.live/api/calendar/ical?token=${localStorage.token}`;
+    copyCalendar(): void {
+        const url = `https://modpod.live/api/calendar/ical?token=${localStorage.token}`;
         navigator.clipboard.writeText(url).then(() => {
             toast.dark(
                 <p>Copied to clipboard! Make sure not to share this URL with <em><strong>anyone</strong></em>.</p>
@@ -89,7 +90,7 @@ class EventsPage extends Component<Readonly<{}>, EventsPageState> {
         })
     }
 
-    render() {
+    render(): JSX.Element {
         return <div>
             <Modal 
                 isOpen={this.state.showCreationModal}
