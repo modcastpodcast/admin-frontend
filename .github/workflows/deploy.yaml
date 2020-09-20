@@ -33,7 +33,7 @@ jobs:
           sourcemaps: ./build/static/js/
 
       - name: Build Docker image
-        run: docker build . --file Dockerfile -t modcastpodcast/admin-frontend/frontend:${{ github.sha }}
+        run: docker build . --file Dockerfile -t latest -t modcastpodcast/admin-frontend/frontend:${{ github.sha }}
 
       - name: Publish Docker image
         uses: elgohr/Publish-Docker-Github-Action@master
