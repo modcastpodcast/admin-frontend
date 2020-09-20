@@ -67,8 +67,8 @@ class UserForm extends Component<UserFormProps, UserFormState> {
 
             <div className="form-row">
                 <input className="button primary" type="submit" value="Submit"/>
+                <button className="button danger" onClick={this.props.closeFunction}>Cancel</button>
             </div>
-            <button className="button danger" onClick={this.props.closeFunction}>Cancel</button>
         </form>
     }
 }
