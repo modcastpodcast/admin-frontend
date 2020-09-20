@@ -10,8 +10,8 @@ import trash from "./trash.svg";
 import edit from "./edit.svg";
 import users from "./users.svg";
 
-import { wrapPromise, WrappedPromise } from "../../utils";
-import { getCurrentUser, deleteShortURL, transferShortURL } from "../../api";
+import { WrappedPromise } from "../../utils";
+import { deleteShortURL, transferShortURL } from "../../api";
 
 interface URLProps  {
     link: Link,
