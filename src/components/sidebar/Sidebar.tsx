@@ -86,7 +86,7 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
                 <div className="Sidebar-bottom">
                     <button onClick={this.props.toggleTheme} className="button primary theme-button">Toggle theme</button>
                     <Suspense fallback={""}>
-                        <CurrentUser userResource={wrapPromise(dataRequest)} />
+                        <CurrentUser userResource={dataRequest} />
                     </Suspense>
                 </div>
             </div>
