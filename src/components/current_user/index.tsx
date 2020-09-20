@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./current_user.scss";
 
 import ProfilePicture from "../profile_picture";
-import {WrappedPromise } from "../../utils";
+import { WrappedPromise } from "../../utils";
 import { User } from "../../types";
 
 interface CurrentUserProps {
@@ -11,10 +11,6 @@ interface CurrentUserProps {
 }
 
 class CurrentUser extends Component<CurrentUserProps, {}> {
-    constructor(props: CurrentUserProps) {
-        super(props);
-    }
-
     render() {
         return <div className="CurrentUser">
             <ProfilePicture id={this.props.userResource.read().id} avatar={this.props.userResource.read().avatar} size={60} discordSize={128}/>
