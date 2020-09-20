@@ -23,6 +23,7 @@ export interface Link {
 }
 
 export interface Event {
+    id: string,
     title: string,
     date: Date,
     creator: User,

@@ -31,8 +31,8 @@ interface AppState {
     theme: string
 }
 
-class App extends Component<Readonly<{}>, AppState> {
-    constructor(props: Readonly<{}>) {
+class App extends Component<Readonly<Record<string, unknown>>, AppState> {
+    constructor(props: Readonly<Record<string, unknown>>) {
         super(props);
 
         this.state = {
@@ -42,8 +42,8 @@ class App extends Component<Readonly<{}>, AppState> {
         this.toggleTheme = this.toggleTheme.bind(this);
     }
 
-    toggleTheme() {
-        let newTheme = this.state.theme === "dark" ? "light" : "dark";
+    toggleTheme(): void {
+        const newTheme = this.state.theme === "dark" ? "light" : "dark";
         this.setState({
             theme: newTheme
         })
@@ -51,7 +51,7 @@ class App extends Component<Readonly<{}>, AppState> {
         localStorage.theme = newTheme;
     }
 
-    render() {
+    render(): JSX.Element {
         document.body.setAttribute("class", `theme-${this.state.theme}`);
 
         if (document.location.hash.indexOf("/authorize/") !== -1) {

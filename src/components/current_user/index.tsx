@@ -10,8 +10,8 @@ interface CurrentUserProps {
     userResource: WrappedPromise<User>
 }
 
-class CurrentUser extends Component<CurrentUserProps, {}> {
-    render() {
+class CurrentUser extends Component<CurrentUserProps, Record<string, unknown>> {
+    render(): JSX.Element {
         return <div className="CurrentUser">
             <ProfilePicture id={this.props.userResource.read().id} avatar={this.props.userResource.read().avatar} size={60} discordSize={128}/>
             <p className="username">Logged in as {this.props.userResource.read().username}</p>

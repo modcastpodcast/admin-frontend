@@ -15,12 +15,12 @@ import { deleteShortURL, transferShortURL } from "../../api";
 
 interface URLProps  {
     link: Link,
-    setRerender: () => any,
-    makeActive: (url: Link) => any,
+    setRerender: () => void,
+    makeActive: (url: Link) => void,
     currentUser: WrappedPromise<APIKey>
 }
 
-class URL extends Component<URLProps, {}> {
+class URL extends Component<URLProps, Record<string, unknown>> {
     constructor(props: URLProps) {
         super(props);
 
@@ -29,9 +29,9 @@ class URL extends Component<URLProps, {}> {
         this.transferLink = this.transferLink.bind(this);
     }
 
-    formatCreated() {
-        let now = moment.utc();
-        let duration = moment.duration(now.diff(moment(this.props.link.creation_date)))
+    formatCreated(): string {
+        const now = moment.utc();
+        const duration = moment.duration(now.diff(moment(this.props.link.creation_date)))
 
         return duration.humanize({
             d: 7,
@@ -39,16 +39,16 @@ class URL extends Component<URLProps, {}> {
         });
     }
 
-    deleteLink() {
+    deleteLink(): void {
         deleteShortURL(this.props.link.short_code).then(() => this.props.setRerender());
     }
 
-    editLink() {
+    editLink(): void {
         this.props.makeActive(this.props.link);
     }
 
-    transferLink() {
-        let newCreator = prompt("Please enter the user ID of the new owner:", this.props.link.creator.id);
+    transferLink(): void {
+        const newCreator = prompt("Please enter the user ID of the new owner:", this.props.link.creator.id);
 
         if (newCreator) {
             transferShortURL(this.props.link.short_code, newCreator).then(resp => {
@@ -61,7 +61,7 @@ class URL extends Component<URLProps, {}> {
         }
     }
 
-    render() {
+    render(): JSX.Element {
         let actionButtons;
 
         if (this.props.link.creator.id === this.props.currentUser.read().creator) {
