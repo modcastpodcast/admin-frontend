@@ -20,13 +20,11 @@ async function get(route: string): Promise<any> {
                 }
             })
         } catch(e) {
-            console.log(`Request error on GET: ${route}`)
             redirectToAuthorize();
             // Return a never resolving promise to stop continued execution
             return new Promise(() => {});
         }
     } else {
-        console.log(`Missing token on GET: ${route}`)
         redirectToAuthorize();
         // Return a never resolving promise to stop continued execution
         return new Promise(() => {});
