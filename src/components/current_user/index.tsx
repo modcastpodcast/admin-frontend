@@ -2,9 +2,8 @@ import React, { Component } from "react";
 
 import "./current_user.scss";
 
-import { getCurrentUser, getUser } from "../../api";
 import ProfilePicture from "../profile_picture";
-import {WrappedPromise, wrapPromise} from "../../utils";
+import {WrappedPromise } from "../../utils";
 import { User } from "../../types";
 
 interface CurrentUserProps {
