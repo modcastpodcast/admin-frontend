@@ -8,7 +8,7 @@ body {
 
 * {
     transition: background-color 0.5s;
-    tranition: color 0.5s;
+    outline: none;
 }
 
 .theme-dark {
@@ -30,10 +30,9 @@ html {
 }
 
 .button {
-    padding-top: 10px;
-    padding-bottom: 10px;
     padding-right: 20px;
     padding-left: 20px;
+    margin-right: 10px;
     font-size: 1.2em;
     font-family: "Hind Siliguri", "Helvetica", "Arial", sans-serif;
     border: 0;
@@ -41,12 +40,24 @@ html {
     cursor: pointer;
     margin-bottom: 10px;
     color: white;
+    transition: all 0.1ss;
 }
 
 .primary {
     background-color: #7289DA;
 }
 
+.primary:hover {
+    background-color: #6978af;
+}
+
 .danger {
-    background-color: #d86161;
+    background-color: transparent;
+    border: 1px solid #d86161;
+    color: #d86161;
+}
+
+.danger:hover {
+    border: 1px solid #b34f4f;
+    color: #b34f4f;
 }

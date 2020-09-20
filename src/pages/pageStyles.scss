@@ -19,9 +19,6 @@
     border-radius: 30px;
     padding: 40px;
     display: flex;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
 }
 
 .theme-dark {
@@ -34,11 +31,6 @@
     .Modal {
         background-color: #ffffff;
     }
-}
-
-.Modal * {
-    text-align: center;
-    justify-self: center;
 }
 
 .Overlay {
