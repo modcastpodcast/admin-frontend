@@ -36,7 +36,7 @@ jobs:
         run: docker build . --file Dockerfile -t modcastpodcast/admin-frontend/frontend:latest -t modcastpodcast/admin-frontend/frontend:${{ github.sha }}
 
       - name: Publish Docker image with Git SHA
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: modcastpodcast/admin-frontend/frontend:${{ github.sha }}
           username: ${{ github.actor }}
@@ -44,7 +44,7 @@ jobs:
           registry: docker.pkg.github.com
       
       - name: Publish Docker image with latest
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: modcastpodcast/admin-frontend/frontend:latest
           username: ${{ github.actor }}
